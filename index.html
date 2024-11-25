@@ -43,7 +43,7 @@
         padding: 20px;
       }
       .login-image {
-          background: url('assets/images/logo.png') no-repeat center center;
+          background: url('assets/images/rb_232.png') no-repeat center center;
           background-size: cover;
       }
       .card {
@@ -80,7 +80,7 @@
         padding: 20px;
       }
       .register-image {
-          background: url('assets/images/logo.png') no-repeat center center;
+          background: url('assets/images/rb_232.png') no-repeat center center;
           background-size: cover;
       }
       .card {
@@ -170,11 +170,11 @@
                 <form>
                   <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <input type="email" class="form-control" id="login-email" placeholder="Enter your email">
                   </div>
                   <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input type="password" class="form-control" id="login-password" placeholder="Enter your password">
                   </div>
                   <div class="d-grid mb-3">
                     <span id="login-submit-btn" class="btn btn-primary">Login</span>
@@ -207,12 +207,12 @@
                     </div>
                   <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <input type="email" class="form-control" id="register-email" placeholder="Enter your email">
                   </div>
                   
                   <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input type="password" class="form-control" id="register-password" placeholder="Enter your password">
                   </div>
                   <div class="d-grid mb-3">
                     <span id="register-submit-btn" type="submit" class="btn btn-primary">Register</span>
@@ -234,46 +234,49 @@
             <div class=" row">
               <div class="col-2">
                 <label class="form-label">Code</label>
-                <input type="text" class="textt form-control" placeholder="Ex: F0001" aria-label="First name">
+                <input id="fieldCode" type="text" class="textt form-control" placeholder="Ex: F0001" aria-label="First name">
+                <label id="fieldIdCheck" style="color: red;">
+                </label>
               </div>
               <div class="col">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" placeholder="Ex: Nebula" aria-label="Last name">
+                <input id="fieldName" type="text" class="form-control" placeholder="Ex: Nebula" aria-label="Last name">
+                <label id="fieldNameCheck" style="color: red;">
+                </label>
               </div>
               <div class="col">
                 <label class="form-label">Location</label>
-                <input type="text" class="form-control" placeholder="Ex: 38.8951° latitude, -77.0364° longitude " aria-label="First name">
+                <input id="fieldLocation" type="text" class="form-control" placeholder="Ex: 38.8951° latitude, -77.0364° longitude " aria-label="First name">
+                <label id="fieldLocationCheck" style="color: red;">
+                </label>
               </div>
               <div class="col-3">
                 <label class="form-label">Extent size</label>
-                <input type="text" class="form-control" placeholder="Extent of the field (Preferred Sq. m) " aria-label="Last name">
+                <input id="fieldSize" type="text" class="form-control" placeholder="Extent of the field (Preferred Sq. m) " aria-label="Last name">
+                <label id="fieldSizeCheck" style="color: red;">
+                </label>
               </div>
             </div>
             <div class=" row">
               <div class="col">
-                <label class="form-label">Crops</label>
-                <input type="text" class="form-control" placeholder="Available crop types of a field " aria-label="First name">
-              </div>
-              <div class="col">
-                <label class="form-label">Staff</label>
-                <input type="text" class="form-control" placeholder="Allocated staff to the field   " aria-label="Last name">
-              </div>
-              <div class="col">
                 <label class="form-label">Image 1</label>
                 <input type="file" class="form-control" id="inputGroupFile01">
+                <label id="fieldImage01Check" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Image 2</label>
                 <input type="file" class="form-control" id="inputGroupFile02">
+                <label id="fieldImage02Check" style="color: red;"></label>
               </div>
             </div>
             <div class="custom-button">
               <button type="button" class="btn btn-primary">Search</button>
-              <button type="button" class="btn btn-success">Add</button>
+              <button type="button" id="add-field-btn" class="btn btn-success">Add</button>
               <button type="button" class="btn btn-danger">Delete</button>
               <button type="button" class="btn btn-warning">Update</button>
               <button type="button" class="btn btn-info">Clear</button>
             </div>
+
             <div class="custom-table table-responsive p-3">
               <table class="table">
                 <thead>
@@ -282,23 +285,11 @@
                     <th scope="col">Name</th>
                     <th scope="col">Location</th>
                     <th scope="col">Extent size</th>
-                    <th scope="col">Crops</th>
-                    <th scope="col">Staff</th>
                     <th scope="col">image1</th>
                     <th scope="col">image2</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                  </tr>
+                <tbody id="field-table">
                 </tbody>
               </table>
             </div>
@@ -909,12 +900,12 @@
       document.getElementById('log-date').value = `${yyyy}-${mm}-${dd}`;
     </script>
     <script>
-      $("#navigation").css({ display: "none" });
-      $("#login_page").css({ display: "block" });
+      $("#navigation").css({ display: "block" });
+      $("#login_page").css({ display: "none" });
       $("#register_page").css({ display: "none" });
       $("#dashboard_page").css({ display: "none" });
       $("#staff_page").css({ display: "none" });
-      $("#field_page").css({ display: "none" });
+      $("#field_page").css({ display: "block" });
       $("#crop_page").css({ display: "none" });
       $("#vehicle_page").css({ display: "none" });
       $("#equipment_page").css({ display: "none" });
@@ -1089,7 +1080,7 @@
         $("#log_page").css({ display: "none" });
         $("#user_page").css({ display: "none" });
       });
-      
     </script>
+    <script type="module" src="assets/controller/StaffController.js"></script>
 </body>
 </html>

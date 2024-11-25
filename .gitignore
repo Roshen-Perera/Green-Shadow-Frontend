@@ -1,0 +1,5 @@
+# Ignore Visual Studio Code directories
+.vscode/
+
+# Ignore IntelliJ IDEA directories
+.idea/
