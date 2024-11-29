@@ -270,11 +270,12 @@
               </div>
             </div>
             <div class="custom-button">
-              <button type="button" class="btn btn-primary">Search</button>
+              
+              <button type="button" id="search-field-btn" class="btn btn-primary">Search</button>
               <button type="button" id="add-field-btn" class="btn btn-success">Add</button>
-              <button type="button" class="btn btn-danger">Delete</button>
-              <button type="button" class="btn btn-warning">Update</button>
-              <button type="button" class="btn btn-info">Clear</button>
+              <button type="button" id="delete-field-btn" class="btn btn-danger">Delete</button>
+              <button type="button" id="update-field-btn" class="btn btn-warning">Update</button>
+              <button type="button" id="clear-field-btn" class="btn btn-info">Clear</button>
             </div>
 
             <div class="custom-table table-responsive p-3">
@@ -300,41 +301,50 @@
             <div class=" row">
               <div class="col-2">
                 <label class="form-label">Code</label>
-                <input type="text" class="textt form-control" placeholder="Ex: C0001" aria-label="Code">
+                <input id="cropCode" type="text" class="textt form-control" placeholder="Ex: C0001" aria-label="Code">
+                <label id="cropIdCheck" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Common name</label>
-                <input type="text" class="form-control" placeholder="Ex: Corn" aria-label="Common name">
+                <input id="cropCommonName" type="text" class="form-control" placeholder="Ex: Corn" aria-label="Common name">
+                <label id="cropCommonNameCheck" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Scientific name</label>
-                <input type="text" class="form-control" placeholder="Ex: Zea mays" aria-label="Scientific name">
+                <input id="cropScientificName" type="text" class="form-control" placeholder="Ex: Zea mays" aria-label="Scientific name">
+                <label id="cropScientificNameCheck" style="color: red;"></label>
               </div>
             </div>
             <div class=" row">
               <div class="col">
                 <label class="form-label">Image</label>
-                <input type="file" class="form-control" id="Image">
+                <input id="cropImage" type="file" class="form-control" id="cropImage">
+                <label id="cropImageCheck" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Category</label>
-                <input type="text" class="form-control" placeholder="Ex: Cereal" aria-label="Category">
+                <input id="cropCategory" id="cropCategory" type="text" class="form-control" placeholder="Ex: Cereal" aria-label="Category">
+                <label id="cropCategoryCheck" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Season</label>
-                <input type="text" class="form-control" placeholder="Ex: Spring" aria-label="Season">
+                <input id="cropSeason" id="cropSeason" type="text" class="form-control" placeholder="Ex: Spring" aria-label="Season">
+                <label id="cropSeasonCheck" style="color: red;"></label>
               </div>
               <div class="col">
                 <label class="form-label">Field</label>
-                <input type="text" class="form-control" placeholder="Ex: F0001 "aria-label="Field">
+                <select class="form-select" id="fieldSelectID" required>
+                  <option selected disabled value=""></option>
+                </select>
+                <label id="fieldCodeCheck" style="color: red;"></label>
               </div>
             </div>
             <div class="custom-button">
-              <button type="button" class="btn btn-primary">Search</button>
-              <button type="button" class="btn btn-success">Add</button>
-              <button type="button" class="btn btn-danger">Delete</button>
-              <button type="button" class="btn btn-warning">Update</button>
-              <button type="button" class="btn btn-info">Clear</button>
+              <button type="button" id="search-crop-btn" class="btn btn-primary">Search</button>
+              <button type="button" id="add-crop-btn" class="btn btn-success">Add</button>
+              <button type="button" id="delete-crop-btn" class="btn btn-danger">Delete</button>
+              <button type="button" id="update-crop-btn" class="btn btn-warning">Update</button>
+              <button type="button" id="clear-crop-btn" class="btn btn-info">Clear</button>
             </div>
             <div class="custom-table table-responsive p-3">
               <table class="table">
@@ -349,16 +359,7 @@
                     <th scope="col">Field</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                  </tr>
+                <tbody id="crop-table">
                 </tbody>
               </table>
             </div>
@@ -369,7 +370,7 @@
             <div class=" row">
               <div class="col-2">
                 <label class="form-label">Code</label>
-                <input type="text" class="form-control" placeholder="Ex: S0001" aria-label="Code">
+                <input id="staffCode" type="text" class="form-control" placeholder="Ex: S0001" aria-label="Code">
               </div>
               <div class="col">
                 <label class="form-label">First Name</label>
@@ -436,15 +437,17 @@
               </div>
               <div class="col">
                 <label class="form-label">Role</label>
-                <input type="text" class="form-control" placeholder="Ex: CEO" aria-label="Role">
+                <select class="form-control" aria-label="Role">
+                  <option value="" disabled selected>Select Role</option>
+                  <option value="ADMIN">ADMIN</option>
+                  <option value="SCIENTIST">SCIENTIST</option>
+                  <option value="MANAGER">MANAGER</option>
+                  <option value="OTHE">OTHER</option>
+                </select>
               </div>
               <div class="col">
                 <label class="form-label">Field</label>
                 <input type="text" class="form-control" placeholder="Ex: F0001" aria-label="Field">
-              </div>
-              <div class="col-2">
-                <label class="form-label">Vehicle</label>
-                <input type="text" class="form-control" placeholder="Ex: CBR-5000" aria-label="Vehicle">
               </div>
             </div>
             <div class="custom-button">
@@ -460,6 +463,7 @@
                   <tr>
                     <th scope="col">Code</th>
                     <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
                     <th scope="col">Designation</th>
                     <th scope="col">Gender</th>
                     <th scope="col">Joined date</th>
@@ -473,46 +477,9 @@
                     <th scope="col">Email Address</th>
                     <th scope="col">Role</th>
                     <th scope="col">Field</th>
-                    <th scope="col">Vehicle</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>001</td>
-                    <td>John</td>
-                    <td>Manager</td>
-                    <td>Male</td>
-                    <td>2020-01-15</td>
-                    <td>1985-05-20</td>
-                    <td>Building A</td>
-                    <td>Main Street</td>
-                    <td>Cityville</td>
-                    <td>Stateville</td>
-                    <td>12345</td>
-                    <td>0777123456</td>
-                    <td>john.doe@example.com</td>
-                    <td>Manager</td>
-                    <td>F0001</td>
-                    <td>Car</td>
-                  </tr>
-                  <tr>
-                    <td>002</td>
-                    <td>Jane</td>
-                    <td>Developer</td>
-                    <td>Female</td>
-                    <td>2019-03-10</td>
-                    <td>1990-07-15</td>
-                    <td>Building B</td>
-                    <td>Second Street</td>
-                    <td>Townsville</td>
-                    <td>Regionville</td>
-                    <td>67890</td>
-                    <td>0777987654</td>
-                    <td>jane.doe@example.com</td>
-                    <td>Developer</td>
-                    <td>F0002</td>
-                    <td>Bike</td>
-                  </tr>
+                <tbody id="staff-table">
                 </tbody>
               </table>
             </div>
@@ -904,8 +871,8 @@
       $("#login_page").css({ display: "none" });
       $("#register_page").css({ display: "none" });
       $("#dashboard_page").css({ display: "none" });
-      $("#staff_page").css({ display: "none" });
-      $("#field_page").css({ display: "block" });
+      $("#staff_page").css({ display: "block" });
+      $("#field_page").css({ display: "none" });
       $("#crop_page").css({ display: "none" });
       $("#vehicle_page").css({ display: "none" });
       $("#equipment_page").css({ display: "none" });
@@ -1081,6 +1048,8 @@
         $("#user_page").css({ display: "none" });
       });
     </script>
+    <script type="module" src="assets/controller/FieldController.js"></script>
+    <script type="module" src="assets/controller/CropController.js"></script>
     <script type="module" src="assets/controller/StaffController.js"></script>
 </body>
 </html>

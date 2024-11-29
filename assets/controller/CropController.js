@@ -2,58 +2,41 @@ $(document).ready(function () {
 
     var recordIndex = undefined;
 
-    loadTableStaff()
+    loadTableCrop()
 
-    let staffCodeError = true;
-    let staffFirstNameError = true;
-    let staffLastNameError = true;
-    let staffDesignationError = true;
-    let staffGenderError = true;
-    let staffJoinedDateError = true;
-    let staffDateOfBirthError = true;
-    let staffBuildingError = true;
-    let staffStreetError = true;
-    let staffCityError = true;
-    let staffStateError = true;
-    let staffPostalCodeError = true;
-    let staffPhoneError = true;
-    let staffEmailError = true;
-    let staffRoleError = true;
-    let staffFieldError = true;
+    let codeCropError = true;
+    let commonNameError = true;
+    let scientificNameError = true;
+    let imageError = true;
+    let categoryError = true;
+    let seasonError = true;
+    let codeFieldError = true;
 
-
-    function loadTableStaff() {
-        $('#staff-table').empty();
+    function loadTableCrop() {
+        $('#crop-table').empty();
         console.log("Loading table...");
-
+        
         $.ajax({
-            url: "http://localhost:4010/green-shadow/api/v1/staff",
+            url: "http://localhost:4010/green-shadow/api/v1/crop",
             method: "GET",
             success: function (results) {
-                $('#staff-table').empty();
+                $('#crop-table').empty();
                 results.forEach(function (post) {
                     var record = `<tr>
-                                    <td>${post.staffId}</td>     
-                                    <td>${post.firstName}</td>
-                                    <td>${post.lastName}</td>     
-                                    <td>${post.designation}</td>
-                                    <td>${post.gender}</td>     
-                                    <td>${post.joinedDate}</td>
-                                    <td>${post.dob}</td>
-                                    <td>${post.addressLine1}</td>
-                                    <td>${post.addressLine2}</td>
-                                    <td>${post.addressLine3}</td>
-                                    <td>${post.addressLine4}</td>
-                                    <td>${post.addressLine5}</td>
-                                    <td>${post.contactNo}</td>
-                                    <td>${post.email}</td>
-                                    <td>${post.role}</td>
+                                    <td>${post.code}</td>     
+                                    <td>${post.commonName}</td>
+                                    <td>${post.scientificName}</td>     
+                                    <td>
+                                        <img src="data:image/png;base64,${post.image}" width="100px">
+                                    </td>
+                                    <td>${post.category}</td>
+                                    <td>${post.season}</td>     
                                     <td>${post.fieldCode}</td>
-                                </tr>`;
-
-                    $('#staff-table').append(record);
+                                </tr>`;        
+                                
+                $('#crop-table').append(record);
                 });
-                $('#staffCount').text(results.length);
+                $('#cropCount').text(results.length);
             },
             error: function (error) {
                 console.log(error);
@@ -62,136 +45,136 @@ $(document).ready(function () {
         });
     }
 
-    function validateCropCode() {
+    function validateCropCode(){
         var isValidCropCode = new RegExp("^C\\d{3}$");
         if ($('#cropCode').val() === "") {
-            $("#cropCode").css({ "border-color": "red" });
+            $("#cropCode").css({"border-color": "red"});
             $("#cropIdCheck").empty();
             $("#cropIdCheck").append("crop Code missing");
             codeCropError = false;
             return false;
         } else if (!isValidCropCode.test($('#cropCode').val())) {
-            $("#cropCode").css({ "border-color": "red" });
+            $("#cropCode").css({"border-color": "red"});
             $("#cropIdCheck").empty();
             $("#cropIdCheck").append("Invalid crop Code");
             codeCropError = false;
             return false;
         } else {
-            $("#cropCode").css({ "border-color": "green" });
+            $("#cropCode").css({"border-color": "green"});
             $("#cropIdCheck").empty();
             codeCropError = true;
         }
     }
 
-    function validateCommonName() {
+    function validateCommonName(){
         var isValidCropCommonName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#cropCommonName').val() === "") {
-            $("#cropCommonName").css({ "border-color": "red" });
+            $("#cropCommonName").css({"border-color": "red"});
             $("#cropCommonNameCheck").empty();
             $("#cropCommonNameCheck").append("Crop Common Name missing");
             commonNameError = false;
             return false;
         } else if (!isValidCropCommonName.test($('#cropCommonName').val())) {
-            $("#cropCommonName").css({ "border-color": "red" });
+            $("#cropCommonName").css({"border-color": "red"});
             $("#cropCommonNameCheck").empty();
             $("#cropCommonNameCheck").append("Invalid Crop Common Name");
             commonNameError = false;
             return false;
         } else {
-            $("#cropCommonName").css({ "border-color": "green" });
+            $("#cropCommonName").css({"border-color": "green"});
             $("#cropCommonNameCheck").empty();
             commonNameError = true;
         }
     }
 
-    function validateScientificName() {
+    function validateScientificName(){
         var isValidCropScientificName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#cropScientificName').val() === "") {
-            $("#cropScientificName").css({ "border-color": "red" });
+            $("#cropScientificName").css({"border-color": "red"});
             $("#cropScientificNameCheck").empty();
             $("#cropScientificNameCheck").append("Crop Scientific Name missing");
             scientificNameError = false;
             return false;
         } else if (!isValidCropScientificName.test($('#cropScientificName').val())) {
-            $("#cropScientificName").css({ "border-color": "red" });
+            $("#cropScientificName").css({"border-color": "red"});
             $("#cropScientificNameCheck").empty();
             $("#cropScientificNameCheck").append("Invalid Crop Scientific Name");
             scientificNameError = false;
             return false;
         } else {
-            $("#cropScientificName").css({ "border-color": "green" });
+            $("#cropScientificName").css({"border-color": "green"});
             $("#cropScientificNameCheck").empty();
             scientificNameError = true;
         }
     }
 
-    function validateImage() {
+    function validateImage(){
         const image1 = $("#cropImage").prop('files')[0];
         if (!image1) {
-            $("#cropImage").css({ "border-color": "red" });
+            $("#cropImage").css({"border-color": "red"});
             $("#cropImageCheck").empty();
             $("#cropImageCheck").append("Crop Image missing");
             imageError = false;
             return false;
         } else {
-            $("#cropImage").css({ "border-color": "green" });
+            $("#cropImage").css({"border-color": "green"});
             $("#cropImageCheck").empty();
             imageError = true;
         }
     }
 
-    function validateCategory() {
+    function validateCategory(){
         var isValidCropCategory = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#cropCategory').val() === "") {
-            $("#cropCategory").css({ "border-color": "red" });
+            $("#cropCategory").css({"border-color": "red"});
             $("#cropCategoryCheck").empty();
             $("#cropCategoryCheck").append("Crop Scientific Name missing");
             categoryError = false;
             return false;
         } else if (!isValidCropCategory.test($('#cropCategory').val())) {
-            $("#cropCategory").css({ "border-color": "red" });
+            $("#cropCategory").css({"border-color": "red"});
             $("#cropCategoryCheck").empty();
             $("#cropCategoryCheck").append("Invalid Crop Scientific Name");
             categoryError = false;
             return false;
         } else {
-            $("#cropCategory").css({ "border-color": "green" });
+            $("#cropCategory").css({"border-color": "green"});
             $("#cropCategoryCheck").empty();
             categoryError = true;
         }
     }
 
-    function validateSeason() {
+    function validateSeason(){
         var isValidCropSeason = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#cropSeason').val() === "") {
-            $("#cropSeason").css({ "border-color": "red" });
+            $("#cropSeason").css({"border-color": "red"});
             $("#cropSeasonCheck").empty();
             $("#cropSeasonCheck").append("Crop Season Name missing");
             seasonError = false;
             return false;
         } else if (!isValidCropSeason.test($('#cropSeason').val())) {
-            $("#cropSeason").css({ "border-color": "red" });
+            $("#cropSeason").css({"border-color": "red"});
             $("#cropSeasonCheck").empty();
             $("#cropSeasonCheck").append("Invalid Crop Season Name");
             seasonError = false;
             return false;
         } else {
-            $("#cropSeason").css({ "border-color": "green" });
+            $("#cropSeason").css({"border-color": "green"});
             $("#cropSeasonCheck").empty();
             seasonError = true;
         }
     }
 
-    function validateFieldCode() {
+    function validateFieldCode(){
         if ($('#fieldSelectID option:selected').text() === "") {
-            $("#fieldSelectID").css({ "border-color": "red" });
+            $("#fieldSelectID").css({"border-color": "red"});
             $("#fieldCodeCheck").append("Field Code missing");
-            console.log("Field Code missing");
+            console.log("Field Code missing");     
             codeFieldError = false;
             return false;
         } else {
             console.log("Field Code present");
-            $("#fieldSelectID").css({ "border-color": "green" });
+            $("#fieldSelectID").css({"border-color": "green"});
             $("#fieldCodeCheck").empty();
             codeFieldError = true;
         }
@@ -199,17 +182,17 @@ $(document).ready(function () {
 
     function updateFieldIDs() {
         $('#fieldSelectID').empty();
-
+    
         const defaultOption = document.createElement("option");
         defaultOption.text = "Select field ID";
         defaultOption.value = ""; // Set an empty value for the default option
         $('#fieldSelectID').append(defaultOption);
-
+    
         // Fetch customer data from the server
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -224,7 +207,7 @@ $(document).ready(function () {
             }
         });
     }
-
+    
     $('#fieldSelectID').on('focus', () => {
         updateFieldIDs();
     });
@@ -235,12 +218,12 @@ $(document).ready(function () {
         console.log(recordIndex);
 
         // Assuming your table cells (td) are in the same order as: ID, Name, Address, Phone
-        let cropCode = $(this).find("td:eq(0)").text();
-        let cropCommonName = $(this).find("td:eq(1)").text();
-        let cropScientificName = $(this).find("td:eq(2)").text();
-        let cropCategory = $(this).find("td:eq(4)").text();
+        let cropCode = $(this).find("td:eq(0)").text();  
+        let cropCommonName = $(this).find("td:eq(1)").text();  
+        let cropScientificName = $(this).find("td:eq(2)").text(); 
+        let cropCategory = $(this).find("td:eq(4)").text(); 
         let cropSeason = $(this).find("td:eq(5)").text();
-        let fieldCode = $(this).find("td:eq(6)").text();
+        let fieldCode = $(this).find("td:eq(6)").text();  
 
         // Setting the values in the form fields
         $("#cropCode").val(cropCode);
@@ -265,9 +248,9 @@ $(document).ready(function () {
         console.log("Searching for crop with ID:", cropId);
         updateFieldIDs();
         $.ajax({
-            url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropId,
+            url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropId,
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             success: (res) => {
                 console.log(JSON.stringify(res));
                 $('#cropCode').val(res.code);
@@ -301,9 +284,9 @@ $(document).ready(function () {
             var fieldCode = $("#fieldSelectID option:selected").text();
 
             $.ajax({
-                url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+                url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -317,7 +300,7 @@ $(document).ready(function () {
                         if (cropImage) {
                             form.append("cropImage", cropImage, cropImage.name);
                         }
-
+            
                         var settings = {
                             "url": "http://localhost:4010/green-shadow/api/v1/crop",
                             "method": "POST",
@@ -327,7 +310,7 @@ $(document).ready(function () {
                             "contentType": false,
                             "data": form
                         };
-
+            
                         $.ajax(settings).done(function (response) {
                             loadTableCrop();
                             alert("Successfully added the crop!");
@@ -336,7 +319,7 @@ $(document).ready(function () {
                             alert("Failed to add the crop!");
                             console.error("Error:", error);
                         });
-                    } else {
+                    } else{
                         console.log("Crop already exists");
                     }
                 },
@@ -345,7 +328,7 @@ $(document).ready(function () {
                 }
             });
 
-
+            
 
             // Debug logs
             console.log("Crop Code:", cropCode);
@@ -365,11 +348,11 @@ $(document).ready(function () {
         }
 
         var settings = {
-            "url": "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+            "url": "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
             "method": "DELETE",
             "timeout": 0,
         };
-
+          
         $.ajax(settings)
             .done(function (response) {
                 alert("Crop deleted successfully!");
@@ -381,9 +364,9 @@ $(document).ready(function () {
                 console.error("Error:", textStatus, errorThrown);
                 alert("Failed to delete the crop. Please try again.");
             });
-
+        
     });
-
+    
     $("#update-crop-btn").click(function () {
         validateCropCode()
         validateCommonName()
@@ -403,11 +386,11 @@ $(document).ready(function () {
 
 
             $.ajax({
-                url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+                url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 success: (res) => {
-
+                    
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         alert("Crop does not exist");
                     } else {
@@ -422,7 +405,7 @@ $(document).ready(function () {
                         if (cropImage) {
                             form.append("cropImage", cropImage, cropImage.name);
                         }
-
+            
                         var settings = {
                             "url": "http://localhost:4010/green-shadow/api/v1/crop",
                             "method": "POST",
@@ -432,7 +415,7 @@ $(document).ready(function () {
                             "contentType": false,
                             "data": form
                         };
-
+            
                         $.ajax(settings).done(function (response) {
                             loadTableCrop();
                             alert("Successfully added the crop!");
@@ -450,7 +433,7 @@ $(document).ready(function () {
         }
 
     });
-
+    
 
     $('#clear-crop-btn').on('click', () => {
         clearFields();
