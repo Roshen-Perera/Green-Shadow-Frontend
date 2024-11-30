@@ -181,12 +181,12 @@ $(document).ready(function () {
     }
 
     function updateFieldIDs() {
-        $('#fieldSelectID').empty();
+        $('cropFieldSelectID').empty();
     
         const defaultOption = document.createElement("option");
         defaultOption.text = "Select field ID";
         defaultOption.value = ""; // Set an empty value for the default option
-        $('#fieldSelectID').append(defaultOption);
+        $('#cropFieldSelectID').append(defaultOption);
     
         // Fetch customer data from the server
         $.ajax({
@@ -199,7 +199,7 @@ $(document).ready(function () {
                     const option = document.createElement("option");
                     option.value = field.fieldCode; // Set value to customer ID
                     option.text = field.fieldCode; // Display customer ID in dropdown
-                    $('#fieldSelectID').append(option);
+                    $('#cropFieldSelectID').append(option);
                 });
             },
             error: (res) => {
@@ -208,7 +208,7 @@ $(document).ready(function () {
         });
     }
     
-    $('#fieldSelectID').on('focus', () => {
+    $('#cropFieldSelectID').on('focus', () => {
         updateFieldIDs();
     });
 

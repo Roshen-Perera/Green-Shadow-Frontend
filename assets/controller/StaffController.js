@@ -10,13 +10,13 @@ $(document).ready(function () {
     let staffDesignationError = true;
     let staffGenderError = true;
     let staffJoinedDateError = true;
-    let staffDateOfBirthError = true;
-    let staffBuildingError = true;
+    let staffDOBError = true;
+    let staffBuildingNoError = true;
     let staffStreetError = true;
     let staffCityError = true;
     let staffStateError = true;
-    let staffPostalCodeError = true;
-    let staffPhoneError = true;
+    let staffPostalError = true;
+    let staffMobileError = true;
     let staffEmailError = true;
     let staffRoleError = true;
     let staffFieldError = true;
@@ -62,148 +62,344 @@ $(document).ready(function () {
         });
     }
 
-    function validateCropCode() {
-        var isValidCropCode = new RegExp("^C\\d{3}$");
-        if ($('#cropCode').val() === "") {
-            $("#cropCode").css({ "border-color": "red" });
-            $("#cropIdCheck").empty();
-            $("#cropIdCheck").append("crop Code missing");
-            codeCropError = false;
+    function validateStaffCode() {
+        var isValidStaffCode = new RegExp("^S\\d{3}$");
+        if ($("#staffCode").val() === "") {
+            $("#staffCode").css({ "border-color": "red" });
+            $("#staffIdCheck").empty();
+            $("#staffIdCheck").append("staff Code missing");
+            staffCodeError = false;
             return false;
-        } else if (!isValidCropCode.test($('#cropCode').val())) {
-            $("#cropCode").css({ "border-color": "red" });
-            $("#cropIdCheck").empty();
-            $("#cropIdCheck").append("Invalid crop Code");
-            codeCropError = false;
+        } else if (!isValidStaffCode.test($("#staffCode").val())) {
+            $("#staffCode").css({ "border-color": "red" });
+            $("#staffIdCheck").empty();
+            $("#staffIdCheck").append("Invalid staff Code");
+            staffCodeError = false;
             return false;
         } else {
-            $("#cropCode").css({ "border-color": "green" });
-            $("#cropIdCheck").empty();
-            codeCropError = true;
+            $("#staffCode").css({ "border-color": "green" });
+            $("#staffIdCheck").empty();
+            staffCodeError = true;
         }
     }
 
-    function validateCommonName() {
-        var isValidCropCommonName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#cropCommonName').val() === "") {
-            $("#cropCommonName").css({ "border-color": "red" });
-            $("#cropCommonNameCheck").empty();
-            $("#cropCommonNameCheck").append("Crop Common Name missing");
-            commonNameError = false;
+    function validateStaffFirstName() {
+        var isValidStaffFirstName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffFirstName").val() === "") {
+            $("#staffFirstName").css({ "border-color": "red" });
+            $("#staffFirstNameCheck").empty();
+            $("#staffFirstNameCheck").append("Staff First Name missing");
+            staffFirstNameError = false;
             return false;
-        } else if (!isValidCropCommonName.test($('#cropCommonName').val())) {
-            $("#cropCommonName").css({ "border-color": "red" });
-            $("#cropCommonNameCheck").empty();
-            $("#cropCommonNameCheck").append("Invalid Crop Common Name");
-            commonNameError = false;
+        } else if (!isValidStaffFirstName.test($("#staffFirstName").val())) {
+            $("#staffFirstName").css({ "border-color": "red" });
+            $("#staffFirstNameCheck").empty();
+            $("#staffFirstNameCheck").append("Invalid Staff First Name");
+            staffFirstNameError = false;
             return false;
         } else {
-            $("#cropCommonName").css({ "border-color": "green" });
-            $("#cropCommonNameCheck").empty();
-            commonNameError = true;
+            $("#staffFirstName").css({ "border-color": "green" });
+            $("#staffFirstNameCheck").empty();
+            staffFirstNameError = true;
         }
     }
 
-    function validateScientificName() {
-        var isValidCropScientificName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#cropScientificName').val() === "") {
-            $("#cropScientificName").css({ "border-color": "red" });
-            $("#cropScientificNameCheck").empty();
-            $("#cropScientificNameCheck").append("Crop Scientific Name missing");
-            scientificNameError = false;
+    function validateStaffLastName() {
+        var isValidStaffLastName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffLastName").val() === "") {
+            $("#staffLastName").css({ "border-color": "red" });
+            $("#staffLastNameCheck").empty();
+            $("#staffLastNameCheck").append("Staff Last Name missing");
+            staffLastNameError = false;
             return false;
-        } else if (!isValidCropScientificName.test($('#cropScientificName').val())) {
-            $("#cropScientificName").css({ "border-color": "red" });
-            $("#cropScientificNameCheck").empty();
-            $("#cropScientificNameCheck").append("Invalid Crop Scientific Name");
-            scientificNameError = false;
+        } else if (!isValidStaffLastName.test($("#staffLastName").val())) {
+            $("#staffLastName").css({ "border-color": "red" });
+            $("#staffLastNameCheck").empty();
+            $("#staffLastNameCheck").append("Invalid Staff Last Name");
+            staffLastNameError = false;
             return false;
         } else {
-            $("#cropScientificName").css({ "border-color": "green" });
-            $("#cropScientificNameCheck").empty();
-            scientificNameError = true;
+            $("#staffLastName").css({ "border-color": "green" });
+            $("#staffLastNameCheck").empty();
+            staffLastNameError = true;
         }
     }
 
-    function validateImage() {
-        const image1 = $("#cropImage").prop('files')[0];
-        if (!image1) {
-            $("#cropImage").css({ "border-color": "red" });
-            $("#cropImageCheck").empty();
-            $("#cropImageCheck").append("Crop Image missing");
-            imageError = false;
+    function validateStaffDesignation() {
+        var isValidStaffDesignation = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffDesignation").val() === "") {
+            $("#staffDesignation").css({ "border-color": "red" });
+            $("#staffDesignationCheck").empty();
+            $("#staffDesignationCheck").append("Staff Designation missing");
+            staffDesignationError = false;
+            return false;
+        } else if (!isValidStaffDesignation.test($("#staffDesignation").val())) {
+            $("#staffDesignation").css({ "border-color": "red" });
+            $("#staffDesignationCheck").empty();
+            $("#staffDesignationCheck").append("Invalid Staff Designation");
+            staffDesignationError = false;
             return false;
         } else {
-            $("#cropImage").css({ "border-color": "green" });
-            $("#cropImageCheck").empty();
-            imageError = true;
+            $("#staffDesignation").css({ "border-color": "green" });
+            $("#staffDesignationCheck").empty();
+            staffDesignationError = true;
         }
     }
 
-    function validateCategory() {
-        var isValidCropCategory = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#cropCategory').val() === "") {
-            $("#cropCategory").css({ "border-color": "red" });
-            $("#cropCategoryCheck").empty();
-            $("#cropCategoryCheck").append("Crop Scientific Name missing");
-            categoryError = false;
+    function validateStaffGender() {
+        var isValidStaffGender = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffGender").val() === "") {
+            $("#staffGender").css({ "border-color": "red" });
+            $("#staffGenderCheck").empty();
+            $("#staffGenderCheck").append("Staff gender missing");
+            staffGenderError = false;
             return false;
-        } else if (!isValidCropCategory.test($('#cropCategory').val())) {
-            $("#cropCategory").css({ "border-color": "red" });
-            $("#cropCategoryCheck").empty();
-            $("#cropCategoryCheck").append("Invalid Crop Scientific Name");
-            categoryError = false;
+        } else if (!isValidStaffGender.test($("#staffGender").val())) {
+            $("#staffGender").css({ "border-color": "red" });
+            $("#staffGenderCheck").empty();
+            $("#staffGenderCheck").append("Invalid Staff gender");
+            staffGenderError = false;
             return false;
         } else {
-            $("#cropCategory").css({ "border-color": "green" });
-            $("#cropCategoryCheck").empty();
-            categoryError = true;
+            $("#staffGender").css({ "border-color": "green" });
+            $("#staffGenderCheck").empty();
+            staffGenderError = true;
         }
     }
 
-    function validateSeason() {
-        var isValidCropSeason = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#cropSeason').val() === "") {
-            $("#cropSeason").css({ "border-color": "red" });
-            $("#cropSeasonCheck").empty();
-            $("#cropSeasonCheck").append("Crop Season Name missing");
-            seasonError = false;
+    function validateStaffJoinedDate() {
+        var isValidStaffJoinedDate = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffJoinedDate").val() === "") {
+            $("#staffJoinedDate").css({ "border-color": "red" });
+            $("#staffJoinedDateCheck").empty();
+            $("#staffJoinedDateCheck").append("staff joined date missing");
+            staffJoinedDateError = false;
             return false;
-        } else if (!isValidCropSeason.test($('#cropSeason').val())) {
-            $("#cropSeason").css({ "border-color": "red" });
-            $("#cropSeasonCheck").empty();
-            $("#cropSeasonCheck").append("Invalid Crop Season Name");
-            seasonError = false;
-            return false;
+        // } else if (!isValidStaffJoinedDate.test($("#staffJoinedDate").val())) {
+        //     $("#staffJoinedDate").css({ "border-color": "red" });
+        //     $("#staffJoinedDateCheck").empty();
+        //     $("#staffJoinedDateCheck").append("Invalid Staff joined date");
+        //     staffJoinedDateError = false;
+        //     return false;
         } else {
-            $("#cropSeason").css({ "border-color": "green" });
-            $("#cropSeasonCheck").empty();
-            seasonError = true;
+            $("#staffJoinedDate").css({ "border-color": "green" });
+            $("#staffJoinedDateCheck").empty();
+            staffJoinedDateError = true;
         }
     }
 
-    function validateFieldCode() {
-        if ($('#fieldSelectID option:selected').text() === "") {
-            $("#fieldSelectID").css({ "border-color": "red" });
-            $("#fieldCodeCheck").append("Field Code missing");
-            console.log("Field Code missing");
-            codeFieldError = false;
+    function validateStaffDOB() {
+        var isValidStaffDOB = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffDOB").val() === "") {
+            $("#staffDOB").css({ "border-color": "red" });
+            $("#staffDOBCheck").empty();
+            $("#staffDOBCheck").append("staff date of birth missing");
+            staffDOBError = false;
+            return false;
+        // } else if (!isValidStaffDOB.test($("#staffDOB").val())) {
+        //     $("#staffDOB").css({ "border-color": "red" });
+        //     $("#staffDOBCheck").empty();
+        //     $("#staffDOBCheck").append("Invalid Staff Date of birth");
+        //     staffDOBError = false;
+        //     return false;
+        } else {
+            $("#staffDOB").css({ "border-color": "green" });
+            $("#staffDOBCheck").empty();
+            staffDOBError = true;
+        }
+    }
+
+    function validateStaffBuildingNo() {
+        var isValidStaffBuildingNo = new RegExp("^(\d+(\/[A-Za-z])?|[A-Za-z0-9]+)$");
+        if ($("#staffBuildingNo").val() === "") {
+            $("#staffBuildingNo").css({ "border-color": "red" });
+            $("#staffBuildingNoCheck").empty();
+            $("#staffBuildingNoCheck").append("Staff Building name or number missing");
+            staffBuildingNoError = false;
+            return false;   
+        // } else if (!isValidStaffBuildingNo.test($("#staffBuildingNo").val())) {
+        //     $("#staffBuildingNo").css({ "border-color": "red" });
+        //     $("#staffBuildingNoCheck").empty();
+        //     $("#staffBuildingNoCheck").append("Invalid Staff Buildi ng name or number");
+        //     staffBuildingNoError = false;
+        //     return false;
+        } else {
+            $("#staffBuildingNo").css({ "border-color": "green" });
+            $("#staffBuildingNoCheck").empty();
+            staffBuildingNoError = true;
+        }
+    }
+
+    function validateStaffStreet() {
+        var isValidStaffStreet = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffStreet").val() === "") {
+            $("#staffStreet").css({ "border-color": "red" });
+            $("#staffStreetCheck").empty();
+            $("#staffStreetCheck").append("Staff Street number missing");
+            staffStreetError = false;
+            return false;
+        // } else if (!isValidStaffStreet.test($("#staffStreet").val())) {
+        //     $("#staffStreet").css({ "border-color": "red" });
+        //     $("#staffStreetCheck").empty();
+        //     $("#staffStreetCheck").append("Invalid Staff Street number");
+        //     staffStreetError = false;
+        //     return false;
+        } else {
+            $("#staffStreet").css({ "border-color": "green" });
+            $("#staffStreetCheck").empty();
+            staffStreetError = true;
+        }
+    }
+    
+    function validateStaffCity() {
+        var isValidStaffCity = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffCity").val() === "") {
+            $("#staffCity").css({ "border-color": "red" });
+            $("#staffCityCheck").empty();
+            $("#staffCityCheck").append("staff date of birth missing");
+            staffCityError = false;
+            return false;
+        } else if (!isValidStaffCity.test($("#staffCity").val())) {
+            $("#staffCity").css({ "border-color": "red" });
+            $("#staffCityCheck").empty();
+            $("#staffCityCheck").append("Invalid Staff Date of birth");
+            staffCityError = false;
             return false;
         } else {
-            console.log("Field Code present");
-            $("#fieldSelectID").css({ "border-color": "green" });
-            $("#fieldCodeCheck").empty();
-            codeFieldError = true;
+            $("#staffCity").css({ "border-color": "green" });
+            $("#staffCityCheck").empty();
+            staffCityError = true;
+        }
+    }
+
+    function validateStaffState() {
+        var isValidStaffState = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffState").val() === "") {
+            $("#staffState").css({ "border-color": "red" });
+            $("#staffStateCheck").empty();
+            $("#staffStateCheck").append("Staff State missing");
+            staffStateError = false;
+            return false;
+        } else if (!isValidStaffState.test($("#staffState").val())) {
+            $("#staffState").css({ "border-color": "red" });
+            $("#staffStateCheck").empty();
+            $("#staffStateCheck").append("Invalid Staff State");
+            staffStateError = false;
+            return false;
+        } else {
+            $("#staffState").css({ "border-color": "green" });
+            $("#staffStateCheck").empty();
+            staffStateError = true;
+        }
+    }
+
+    function validateStaffPostal() {
+        var isValidStaffPostal = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffPostal").val() === "") {
+            $("#staffPostal").css({ "border-color": "red" });
+            $("#staffPostalCheck").empty();
+            $("#staffPostalCheck").append("staff Postal missing");
+            staffPostalError = false;
+            return false;
+        } else if (!isValidStaffPostal.test($("#staffPostal").val())) {
+            $("#staffPostal").css({ "border-color": "red" });
+            $("#staffPostalCheck").empty();
+            $("#staffPostalCheck").append("Invalid Staff Postal");
+            staffPostalError = false;
+            return false;
+        } else {
+            $("#staffPostal").css({ "border-color": "green" });
+            $("#staffPostalCheck").empty();
+            staffPostalError = true;
+        }
+    }
+    
+    function validateStaffMobile() {
+        // var isValidStaffMobile = new RegExp("^(?:7|0|(?:\+94))[0-9]{9,10}$");
+        if ($("#staffMobile").val() === "") {
+            $("#staffMobile").css({ "border-color": "red" });
+            $("#staffMobileCheck").empty();
+            $("#staffMobileCheck").append("Staff Mobile missing");
+            staffMobileError = false;
+            return false;
+        // } else if (!isValidStaffMobile.test($("#staffMobile").val())) {
+        //     $("#staffMobile").css({ "border-color": "red" });
+        //     $("#staffMobileCheck").empty();
+        //     $("#staffMobileCheck").append("Invalid Staff Mobile");
+        //     staffMobileError = false;
+        //     return false;
+        } else {
+            $("#staffMobile").css({ "border-color": "green" });
+            $("#staffMobileCheck").empty();
+            staffMobileError = true;
+        }
+    }
+
+    function validateStaffEmail() {
+        var isValidStaffEmail = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+        if ($("#staffEmail").val() === "") {
+            $("#staffEmail").css({ "border-color": "red" });
+            $("#staffEmailCheck").empty();
+            $("#staffEmailCheck").append("staff Email missing");
+            staffEmailError = false;
+            return false;
+        } else if (!isValidStaffEmail.test($("#staffEmail").val())) {
+            $("#staffEmail").css({ "border-color": "red" });
+            $("#staffEmailCheck").empty();
+            $("#staffEmailCheck").append("Invalid Staff Email");
+            staffEmailError = false;
+            return false;
+        } else {
+            $("#staffEmail").css({ "border-color": "green" });
+            $("#staffEmailCheck").empty();
+            staffEmailError = true;
+        }
+    }
+
+    function validateStaffRole() {
+        var isValidStaffRole = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($("#staffRoleSelect").val() === "") {
+            $("#staffRoleSelect").css({ "border-color": "red" });
+            $("#staffRoleCheck").empty();
+            $("#staffRoleCheck").append("Staff Role missing");
+            staffRoleError = false;
+            return false;
+        } else if (!isValidStaffRole.test($("#staffRoleSelect").val())) {
+            $("#staffRoleSelect").css({ "border-color": "red" });
+            $("#staffRoleCheck").empty();
+            $("#staffRoleCheck").append("Invalid Staff Role");
+            staffRoleError = false;
+            return false;
+        } else {
+            $("#staffRole").css({ "border-color": "green" });
+            $("#staffRoleCheck").empty();
+            staffRoleError = true;
+        }
+    }
+
+    function validateStaffField() {
+        if ($("#staffFieldSelectID option:selected").text() === "") {
+            $("#staffFieldSelectID").css({"border-color": "red"});
+            $("#staffFieldCodeCheck").empty();
+            $("#staffFieldCodeCheck").append("Field Code missing");
+            console.log("staffField Code missing");     
+            staffFieldError = false;
+            return false;
+        } else {
+            console.log("staffField Code present");
+            $("#staffFieldSelectID").css({"border-color": "green"});
+            $("#staffFieldCodeCheck").empty();
+            staffFieldError = true;
         }
     }
 
     function updateFieldIDs() {
-        $('#fieldSelectID').empty();
+        $("#staffFieldSelectID").empty();
 
         const defaultOption = document.createElement("option");
         defaultOption.text = "Select field ID";
         defaultOption.value = ""; // Set an empty value for the default option
-        $('#fieldSelectID').append(defaultOption);
+        $('#staffFieldSelectID').append(defaultOption);
 
         // Fetch customer data from the server
         $.ajax({
@@ -216,7 +412,7 @@ $(document).ready(function () {
                     const option = document.createElement("option");
                     option.value = field.fieldCode; // Set value to customer ID
                     option.text = field.fieldCode; // Display customer ID in dropdown
-                    $('#fieldSelectID').append(option);
+                    $('#staffFieldSelectID').append(option);
                 });
             },
             error: (res) => {
@@ -225,56 +421,98 @@ $(document).ready(function () {
         });
     }
 
-    $('#fieldSelectID').on('focus', () => {
+    $('#staffFieldSelectID').on('focus', () => {
         updateFieldIDs();
     });
 
 
-    $("#crop-table").on('click', 'tr', function () {
+    $("#staff-table").on('click', 'tr', function () {
         recordIndex = $(this).index();
         console.log(recordIndex);
 
         // Assuming your table cells (td) are in the same order as: ID, Name, Address, Phone
-        let cropCode = $(this).find("td:eq(0)").text();
-        let cropCommonName = $(this).find("td:eq(1)").text();
-        let cropScientificName = $(this).find("td:eq(2)").text();
-        let cropCategory = $(this).find("td:eq(4)").text();
-        let cropSeason = $(this).find("td:eq(5)").text();
-        let fieldCode = $(this).find("td:eq(6)").text();
+        let staffCode = $(this).find("td:eq(0)").text();
+        let staffFirstName = $(this).find("td:eq(1)").text();
+        let staffLastName = $(this).find("td:eq(2)").text();
+        let staffDesignation = $(this).find("td:eq(3)").text();
+        let staffGenderSelect = $(this).find("td:eq(4)").text();
+        let staffJoinedDate = $(this).find("td:eq(5)").text();
+        let staffDOB = $(this).find("td:eq(6)").text();
+        let staffBuildingNo = $(this).find("td:eq(7)").text();
+        let staffStreet = $(this).find("td:eq(8)").text();
+        let staffCity = $(this).find("td:eq(9)").text();
+        let staffState = $(this).find("td:eq(10)").text();
+        let staffPostal = $(this).find("td:eq(11)").text();
+        let staffMobile = $(this).find("td:eq(12)").text();
+        let staffEmail = $(this).find("td:eq(13)").text();
+        let staffRoleSelect = $(this).find("td:eq(14)").text();
+        let staffFieldSelectID = $(this).find("td:eq(15)").text();
 
         // Setting the values in the form fields
-        $("#cropCode").val(cropCode);
-        $("#cropCommonName").val(cropCommonName);
-        $("#cropScientificName").val(cropScientificName);
-        $("#cropCategory").val(cropCategory);
-        $("#cropSeason").val(cropSeason);
-        $("#fieldSelectID option:selected").text(fieldCode)
+        $("#staffCode").val(staffCode);
+        $("#staffFirstName").val(staffFirstName);
+        $("#staffLastName").val(staffLastName);
+        $("#staffDesignation").val(staffDesignation);
+        $("#staffGenderSelect").val(staffGenderSelect);
+        $("#staffJoinedDate").val(staffJoinedDate);
+        $("#staffDOB").val(staffDOB);
+        $("#staffBuildingNo").val(staffBuildingNo);
+        $("#staffStreet").val(staffStreet);
+        $("#staffCity").val(staffCity);
+        $("#staffState").val(staffState);
+        $("#staffPostal").val(staffPostal);
+        $("#staffMobile").val(staffMobile);
+        $("#staffEmail").val(staffEmail);
+        $("#staffRoleSelect").val(staffRoleSelect);
+        $("#staffFieldSelectID").val(staffFieldSelectID);
+
 
         // Debugging logs
-        console.log("Crop Code:", cropCode);
-        console.log("Crop Common Name:", cropCommonName);
-        console.log("Crop Scientific Name:", cropScientificName);
-        console.log("Crop Category:", cropCategory);
-        console.log("Crop Season:", cropSeason);
-        console.log("Field Code:", fieldCode);
-
+        console.log("Staff Code:", staffCode);
+        console.log("Staff First Name:", staffFirstName);
+        console.log("Staff Last Name:", staffLastName);
+        console.log("Staff Designation:", staffDesignation);
+        console.log("Staff Gender Select", staffGenderSelect);
+        console.log("Staff Joined Date:", staffJoinedDate);
+        console.log("Staff DOB:", staffDOB);
+        console.log("Staff Building No:", staffBuildingNo);
+        console.log("Staff Street:", staffStreet);
+        console.log("Staff City:", staffCity);
+        console.log("Staff State:", staffState);
+        console.log("Staff Postal:", staffPostal);
+        console.log("Staff Mobile:", staffMobile);
+        console.log("Staff Email:", staffEmail);
+        console.log("Staff Role Select:", staffRoleSelect);
+        console.log("Staff Field Select ID:", staffFieldSelectID);
     });
 
-    $('#search-crop-btn').on('click', () => {
-        let cropId = $('#cropCode').val();
-        console.log("Searching for crop with ID:", cropId);
+    $('#search-staff-btn').on('click', () => {
+        let staffId = $('#staffCode').val();
+        console.log("Searching for staff with ID:", staffId);
         updateFieldIDs();
         $.ajax({
-            url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropId,
+            url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffId,
             type: "GET",
             headers: { "Content-Type": "application/json" },
             success: (res) => {
                 console.log(JSON.stringify(res));
-                $('#cropCode').val(res.code);
-                $('#cropCommonName').val(res.commonName);
-                $('#cropScientificName').val(res.scientificName);
-                $('#cropCategory').val(res.category);
-                $('#cropSeason').val(res.season);
+                $("#staffCode").val(res.staffId);
+                $("#staffFirstName").val(res.firstName);
+                $("#staffLastName").val(res.lastName);
+                $("#staffDesignation").val(res.designation);
+                $("#staffGenderSelect").val(res.gender);
+                $("#staffJoinedDate").val(res.joinedDate);
+                $("#staffDOB").val(res.dob);
+                $("#staffBuildingNo").val(res.addressLine1);
+                $("#staffStreet").val(res.addressLine2);
+                $("#staffCity").val(res.addressLine3);
+                $("#staffState").val(res.addressLine4);
+                $("#staffPostal").val(res.addressLine5);
+                $("#staffMobile").val(res.contactNo);
+                $("#staffEmail").val(res.email);
+                $("#staffRoleSelect").val(res.role);
+                $("#staffFieldSelectID").val(res.fieldCode);
+
             },
             error: (res) => {
                 console.error(res);
@@ -283,43 +521,68 @@ $(document).ready(function () {
     });
 
     // Add a button to trigger the collection of data
-    $("#add-crop-btn").click(function () {
-        validateCropCode()
-        validateCommonName()
-        validateScientificName()
-        validateImage()
-        validateCategory()
-        validateSeason()
-        validateFieldCode()
-        if (codeCropError === true && commonNameError === true && scientificNameError === true && imageError === true && categoryError === true && seasonError === true && codeFieldError === true) {
-            var cropCode = $("#cropCode").val();
-            var cropCommonName = $("#cropCommonName").val();
-            var cropScientificName = $("#cropScientificName").val();
-            var cropImage = $("#cropImage").prop('files')[0];
-            var cropCategory = $("#cropCategory").val();
-            var cropSeason = $("#cropSeason").val();
-            var fieldCode = $("#fieldSelectID option:selected").text();
+    $("#add-staff-btn").click(function () {
+        validateStaffCode()
+        validateStaffFirstName()
+        validateStaffLastName()
+        validateStaffDesignation()
+        validateStaffGender()
+        validateStaffJoinedDate()
+        validateStaffDOB()
+        validateStaffBuildingNo()
+        validateStaffStreet()
+        validateStaffCity()
+        validateStaffState()
+        validateStaffPostal()
+        validateStaffMobile()
+        validateStaffEmail()
+        validateStaffRole()
+        validateStaffField()
+        if (staffCodeError === true && staffFirstNameError === true && staffLastNameError === true && staffDesignationError === true && staffGenderError === true && staffJoinedDateError === true && staffDOBError === true && staffBuildingNoError === true && staffStreetError === true && staffCityError === true && staffStateError === true && staffPostalError === true && staffMobileError === true && staffEmailError === true && staffRoleError === true && staffFieldError === true) {
+            var staffCode = $("#staffCode").val();
+            var staffFirstName = $("#staffFirstName").val();
+            var staffLastName = $("#staffLastName").val();
+            var staffDesignation = $("#staffDesignation").val();
+            var staffGender = $("#staffGenderSelect option:selected").text();
+            var staffJoinedDate = $("#staffJoinedDate").val();
+            var staffDOB = $("#staffDOB").val();
+            var staffBuildingNo = $("#staffBuildingNo").val();
+            var staffStreet = $("#staffStreet").val();
+            var staffCity = $("#staffCity").val();
+            var staffState = $("#staffState").val();
+            var staffPostal = $("#staffPostal").val();
+            var staffMobile = $("#staffMobile").val();
+            var staffEmail = $("#staffEmail").val();
+            var staffRole = $("#staffRoleSelect option:selected").text();
+            var staffField = $("#staffFieldSelectID option:selected").text();
 
             $.ajax({
-                url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+                url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
                 type: "GET",
                 headers: { "Content-Type": "application/json" },
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
-                        form.append("cropCode", cropCode);
-                        form.append("cropName", cropCommonName);
-                        form.append("cropScientificName", cropScientificName);
-                        form.append("cropCategory", cropCategory);
-                        form.append("cropSeason", cropSeason);
-                        form.append("fieldCode", fieldCode);
-
-                        if (cropImage) {
-                            form.append("cropImage", cropImage, cropImage.name);
-                        }
+                        form.append("staffId", staffCode);
+                        form.append("firstName", staffFirstName);
+                        form.append("lastName", staffLastName);
+                        form.append("designation", staffDesignation);
+                        form.append("gender", staffGender);
+                        form.append("joinedDate", staffJoinedDate);
+                        form.append("dob", staffDOB);
+                        form.append("addressLine1", staffBuildingNo);
+                        form.append("addressLine2", staffStreet);
+                        form.append("addressLine3", staffCity);
+                        form.append("addressLine4", staffState);
+                        form.append("addressLine5", staffPostal);
+                        form.append("contactNo", staffMobile);
+                        form.append("email", staffEmail);
+                        form.append("role", staffRole);
+                        form.append("fieldCode", staffField);
+                        
 
                         var settings = {
-                            "url": "http://localhost:4010/green-shadow/api/v1/crop",
+                            "url": "http://localhost:4010/green-shadow/api/v1/staff",
                             "method": "POST",
                             "timeout": 0,
                             "processData": false,
@@ -330,14 +593,14 @@ $(document).ready(function () {
 
                         $.ajax(settings).done(function (response) {
                             loadTableCrop();
-                            alert("Successfully added the crop!");
+                            alert("Successfully added the staff!");
                             console.log("Response:", response);
                         }).fail(function (error) {
-                            alert("Failed to add the crop!");
+                            alert("Failed to add the staff!");
                             console.error("Error:", error);
                         });
                     } else {
-                        console.log("Crop already exists");
+                        console.log("Staff already exists");
                     }
                 },
                 error: (res) => {
@@ -345,86 +608,120 @@ $(document).ready(function () {
                 }
             });
 
-
-
             // Debug logs
-            console.log("Crop Code:", cropCode);
-            console.log("Crop Common Name:", cropCommonName);
-            console.log("Crop Scientific Name:", cropScientificName);
-            console.log("Crop Category:", cropCategory);
-            console.log("Crop Season:", cropSeason);
+            console.log("Staff Code:", staffCode);
+            console.log("Staff First Name:", staffFirstName);
+            console.log("Staff Last Name:", staffLastName);
+            console.log("Staff Designation:", staffDesignation);
+            console.log("Staff joined data: ", staffJoinedDate);
+            console.log("Staff DOB:", staffDOB);
+            console.log("Staff Building No:", staffBuildingNo);
+            console.log("Staff Street:", staffStreet);
+            console.log("Staff City:", staffCity);
+            console.log("Staff State:", staffState);
+            console.log("Staff Postal:", staffPostal);
+            console.log("Staff Mobile:", staffMobile);
+            console.log("Staff Email:", staffEmail);
+            console.log("Staff Role:", staffRole);
+            console.log("Staff Field:", staffField);
+            
         }
     });
 
-    $("#delete-crop-btn").click(function () {
-        var cropCode = $("#cropCode").val();
+    $("#delete-staff-btn").click(function () {
+        var staffCode = $("#staffCode").val();
 
-        if (!cropCode) {
+        if (!staffCode) {
             alert("Please enter a field code to delete.");
             return;
         }
 
         var settings = {
-            "url": "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+            "url": "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
             "method": "DELETE",
             "timeout": 0,
         };
 
         $.ajax(settings)
             .done(function (response) {
-                alert("Crop deleted successfully!");
+                alert("staff deleted successfully!");
                 console.log("Response Data:", response);
                 // Optionally refresh the table or UI
-                loadTableCrop(); // Call your function to reload the table
+                loadTableStaff(); // Call your function to reload the table
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Error:", textStatus, errorThrown);
-                alert("Failed to delete the crop. Please try again.");
+                alert("Failed to delete the staff. Please try again.");
             });
 
     });
 
-    $("#update-crop-btn").click(function () {
-        validateCropCode()
-        validateCommonName()
-        validateScientificName()
-        validateImage()
-        validateCategory()
-        validateSeason()
-        validateFieldCode()
-        if (codeCropError === true && commonNameError === true && scientificNameError === true && imageError === true && categoryError === true && seasonError === true && codeFieldError === true) {
-            var cropCode = $("#cropCode").val();
-            var cropCommonName = $("#cropCommonName").val();
-            var cropScientificName = $("#cropScientificName").val();
-            var cropImage = $("#cropImage").prop('files')[0];
-            var cropCategory = $("#cropCategory").val();
-            var cropSeason = $("#cropSeason").val();
-            var fieldCode = $("#fieldSelectID option:selected").text();
+    $("#update-staff-btn").click(function () {
+        validateStaffCode()
+        validateStaffFirstName()
+        validateStaffLastName()
+        validateStaffDesignation()
+        validateStaffGender()
+        validateStaffJoinedDate()
+        validateStaffDOB()
+        validateStaffBuildingNo()
+        validateStaffStreet()
+        validateStaffCity()
+        validateStaffState()
+        validateStaffPostal()
+        validateStaffMobile()
+        validateStaffEmail()
+        validateStaffRole()
+        validateStaffField()
+        if (staffCodeError === true && staffFirstNameError === true && staffLastNameError === true && staffDesignationError === true && staffGenderError === true && staffJoinedDateError === true && staffDOBError === true && staffBuildingNoError === true && staffStreetError === true && staffCityError === true && staffStateError === true && staffPostalError === true && staffMobileError === true && staffEmailError === true && staffRoleError === true && staffFieldError === true) {
+            var staffCode = $("#staffCode").val();
+            var staffFirstName = $("#staffFirstName").val();
+            var staffLastName = $("#staffLastName").val();
+            var staffDesignation = $("#staffDesignation").val();
+            var staffGender = $("#staffGenderSelect option:selected").text();
+            var staffJoinedDate = $("#staffJoinedDate").val();
+            var staffDOB = $("#staffDOB").val();
+            var staffBuildingNo = $("#staffBuildingNo").val();
+            var staffStreet = $("#staffStreet").val();
+            var staffCity = $("#staffCity").val();
+            var staffState = $("#staffState").val();
+            var staffPostal = $("#staffPostal").val();
+            var staffMobile = $("#staffMobile").val();
+            var staffEmail = $("#staffEmail").val();
+            var staffRole = $("#staffRoleSelect option:selected").text();
+            var staffField = $("#staffFieldSelectID option:selected").text();
 
 
             $.ajax({
-                url: "http://localhost:4010/green-shadow/api/v1/crop/" + cropCode,
+                url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
                 type: "GET",
                 headers: { "Content-Type": "application/json" },
                 success: (res) => {
 
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
-                        alert("Crop does not exist");
+                        alert("Staff does not exist");
                     } else {
                         var form = new FormData();
-                        form.append("cropCode", cropCode);
-                        form.append("cropName", cropCommonName);
-                        form.append("cropScientificName", cropScientificName);
-                        form.append("cropCategory", cropCategory);
-                        form.append("cropSeason", cropSeason);
-                        form.append("fieldCode", fieldCode);
-
-                        if (cropImage) {
-                            form.append("cropImage", cropImage, cropImage.name);
-                        }
+                        form.append("staffId", staffCode);
+                        form.append("firstName", staffFirstName);
+                        form.append("lastName", staffLastName);
+                        form.append("designation", staffDesignation);
+                        form.append("gender", staffGender);
+                        form.append("joinedDate", staffJoinedDate);
+                        form.append("dob", staffDOB);
+                        form.append("addressLine1", staffBuildingNo);
+                        form.append("addressLine2", staffStreet);
+                        form.append("addressLine3", staffCity);
+                        form.append("addressLine4", staffState);
+                        form.append("addressLine5", staffPostal);
+                        form.append("contactNo", staffMobile);
+                        form.append("email", staffEmail);
+                        form.append("role", staffRole);
+                        form.append("fieldCode", staffField);
+                        
 
                         var settings = {
-                            "url": "http://localhost:4010/green-shadow/api/v1/crop",
+                            "url": "http://localhost:4010/green-shadow/api/v1/staff",
                             "method": "POST",
                             "timeout": 0,
                             "processData": false,
@@ -434,11 +731,11 @@ $(document).ready(function () {
                         };
 
                         $.ajax(settings).done(function (response) {
-                            loadTableCrop();
-                            alert("Successfully added the crop!");
+                            loadTableStaff();
+                            alert("Successfully updated the staff!");
                             console.log("Response:", response);
                         }).fail(function (error) {
-                            alert("Failed to add the crop!");
+                            alert("Failed to update the staff!");
                             console.error("Error:", error);
                         });
                     }
@@ -452,17 +749,27 @@ $(document).ready(function () {
     });
 
 
-    $('#clear-crop-btn').on('click', () => {
+    $('#clear-staff-btn').on('click', () => {
         clearFields();
     });
 
     function clearFields() {
-        $('#cropCode').val("");
-        $('#cropCommonName').val("");
-        $('#cropScientificName').val("");
-        $('#cropCategory').val("");
-        $('#cropSeason').val("");
-        $('#fieldSelectID').val("");
+        $("#staffCode").val("");
+        $("#staffFirstName").val("");
+        $("#staffLastName").val("");
+        $("#staffDesignation").val("");
+        $("#staffGenderSelect").val("");
+        $("#staffJoinedDate").val("");
+        $("#staffDOB").val("");
+        $("#staffBuildingNo").val("");
+        $("#staffStreet").val("");
+        $("#staffCity").val("");
+        $("#staffState").val("");
+        $("#staffPostal").val("");
+        $("#staffMobile").val("");
+        $("#staffEmail").val("");
+        $("#staffRoleSelect").val("");
+        $("#staffFieldSelectID").val("");
     }
 
 });
