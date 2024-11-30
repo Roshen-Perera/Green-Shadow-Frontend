@@ -190,7 +190,7 @@ $(document).ready(function () {
         }
     }
 
-    function updateFieldIDs() {
+    function updateVehicleStaffIDs() {
         $("#vehicleStaffSelectID").empty();
 
         const defaultOption = document.createElement("option");
@@ -219,7 +219,7 @@ $(document).ready(function () {
     }
 
     $('#vehicleStaffSelectID').on('focus', () => {
-        updateFieldIDs();
+        updateVehicleStaffIDs();
     });
 
 

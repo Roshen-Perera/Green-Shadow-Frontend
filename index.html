@@ -618,72 +618,55 @@
       <div class=" row">
         <div class="col-2">
           <label class="form-label">Equipment code</label>
-          <input type="text" class="form-control" placeholder="Ex: V0001" aria-label="Equipment code">
+          <input id="equipmentCode" type="text" class="form-control" placeholder="Ex: V0001" aria-label="Equipment code">
+          <label id="equipmentCodeCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Name</label>
-          <input type="text" class="form-control" placeholder="Ex: LY-5495" aria-label="Name">
+          <input id="equipmentName" type="text" class="form-control" placeholder="Ex: LY-5495" aria-label="Name">
+          <label id="equipmentNameCheck" style="color: red;"></label>
+
         </div>
         <div class="col">
           <label class="form-label">Type</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" id="electrical" value="Electrical"
-              aria-label="Electrical">
-            <label class="form-check-label" for="electrical">
-              Electrical
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" id="mechanical" value="Mechanical"
-              aria-label="Mechanical">
-            <label class="form-check-label" for="mechanical">
-              Mechanical
-            </label>
-          </div>
+          <select class="form-control" aria-label="Type" id="equipmentType">
+            <option value="" disabled selected>Type</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Mechanical">Mechanical</option>
+          </select>
+          <label id="equipmentTypeCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Availability</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="available" value="Available"
-              aria-label="Available">
-            <label class="form-check-label" for="available">
-              Available
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="unavailable" value="Unavailable"
-              aria-label="Unavailable">
-            <label class="form-check-label" for="unavailable">
-              Unavailable
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="UnderMaintenance"
-              value="Under Maintenance" aria-label="Under Maintenance">
-            <label class="form-check-label" for="unavailable">
-              Under Maintenance
-            </label>
-          </div>
+          <select class="form-control" aria-label="Role" id="equipmentStatus">
+            <option value="" disabled selected>Select Role</option>
+            <option value="Available">Available</option>
+            <option value="Unavailable">Unavailable</option>
+            <option value="UnderMaintenance">UnderMaintenance</option>
+          </select>
+          <label id="equipmentStatusCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Staff</label>
-          <select class="form-control" aria-label="Fuel type">
-            <option value="" disabled selected>Select staff member</option>
+          <select class="form-select" id="equipmentStaffSelectID" required>
+            <option selected disabled value=""></option>
           </select>
+          <label id="equipmentStaffCodeCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Field</label>
-          <select class="form-control" aria-label="Fuel type">
-            <option value="" disabled selected>Select relevant field</option>
+          <select class="form-select" id="equipmentFieldSelectID" required>
+            <option selected disabled value=""></option>
           </select>
+          <label id="equipmentFieldCheck" style="color: red;"></label>
         </div>
       </div>
       <div class="custom-button">
-        <button type="button" class="btn btn-primary">Search</button>
-        <button type="button" class="btn btn-success">Add</button>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-warning">Update</button>
-        <button type="button" class="btn btn-info">Clear</button>
+        <button type="button" id="search-equipment-btn" class="btn btn-primary">Search</button>
+        <button type="button" id="add-equipment-btn" class="btn btn-success">Add</button>
+        <button type="button" id="delete-equipment-btn" class="btn btn-danger">Delete</button>
+        <button type="button" id="update-equipment-btn" class="btn btn-warning">Update</button>
+        <button type="button" id="clear-equipment-btn" class="btn btn-info">Clear</button>
       </div>
       <div class="custom-table table-responsive p-3">
         <table class="table">
@@ -692,34 +675,13 @@
               <th scope="col">Equipment Code</th>
               <th scope="col">Name</th>
               <th scope="col">Type</th>
-              <th scope="col">Fuel Type</th>
               <th scope="col">Availability</th>
-              <th scope="col">Status</th>
               <th scope="col">Staff</th>
               <th scope="col">Field</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>E001</td>
-              <td>Tractor</td>
-              <td>Mechanical</td>
-              <td>Diesel</td>
-              <td>Available</td>
-              <td>Operational</td>
-              <td>John Doe</td>
-              <td>Agriculture</td>
-            </tr>
-            <tr>
-              <td>E002</td>
-              <td>Plough</td>
-              <td>Mechanical</td>
-              <td>None</td>
-              <td>Unavailable</td>
-              <td>Under Maintenance</td>
-              <td>Jane Smith</td>
-              <td>Agriculture</td>
-            </tr>
+          <tbody id="equipment-table">
+            
           </tbody>
         </table>
       </div>
@@ -803,12 +765,12 @@
       </div>
     </div>
   </div>
-  <div id="user_page">
+  <!-- <div id="user_page">
     <div class="custom-form">
       <div class=" row">
         <div class="col-2">
           <label class="form-label">Equipment code</label>
-          <input type="text" class="form-control" placeholder="Ex: V0001" aria-label="Equipment code">
+          <input  type="text" class="form-control" placeholder="Ex: V0001" aria-label="Equipment code">
         </div>
         <div class="col">
           <label class="form-label">Name</label>
@@ -816,44 +778,23 @@
         </div>
         <div class="col">
           <label class="form-label">Type</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" id="electrical" value="Electrical"
-              aria-label="Electrical">
-            <label class="form-check-label" for="electrical">
-              Electrical
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" id="mechanical" value="Mechanical"
-              aria-label="Mechanical">
-            <label class="form-check-label" for="mechanical">
-              Mechanical
-            </label>
-          </div>
+          <select class="form-control" aria-label="Role" id="vehicleStatus">
+            <option value="" disabled selected>Select Role</option>
+            <option value="Available">Available</option>
+            <option value="Unavailable">Unavailable</option>
+            <option value="UnderMaintenance">UnderMaintenance</option>
+          </select>
+          <label id="vehicleStatusCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Availability</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="available" value="Available"
-              aria-label="Available">
-            <label class="form-check-label" for="available">
-              Available
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="unavailable" value="Unavailable"
-              aria-label="Unavailable">
-            <label class="form-check-label" for="unavailable">
-              Unavailable
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="availability" id="UnderMaintenance"
-              value="Under Maintenance" aria-label="Under Maintenance">
-            <label class="form-check-label" for="unavailable">
-              Under Maintenance
-            </label>
-          </div>
+          <select class="form-control" aria-label="Role" id="vehicleStatus">
+            <option value="" disabled selected>Select Role</option>
+            <option value="Available">Available</option>
+            <option value="Unavailable">Unavailable</option>
+            <option value="UnderMaintenance">UnderMaintenance</option>
+          </select>
+          <label id="vehicleStatusCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Staff</label>
@@ -914,7 +855,7 @@
         </table>
       </div>
     </div>
-  </div>
+  </div> -->
   <script src="assets/lib/jquery-3.7.1.min.js"></script>
   <script>
     const today = new Date();
@@ -931,8 +872,8 @@
     $("#staff_page").css({ display: "none" });
     $("#field_page").css({ display: "none" });
     $("#crop_page").css({ display: "none" });
-    $("#vehicle_page").css({ display: "block" });
-    $("#equipment_page").css({ display: "none" });
+    $("#vehicle_page").css({ display: "none" });
+    $("#equipment_page").css({ display: "block" });
     $("#log_page").css({ display: "none" });
     $("#user_page").css({ display: "none" });
 
@@ -1109,6 +1050,7 @@
   <script type="module" src="assets/controller/CropController.js"></script>
   <script type="module" src="assets/controller/StaffController.js"></script>
   <script type="module" src="assets/controller/VehicleController.js"></script>
+  <script type="module" src="assets/controller/EquipmentController.js"></script>
 </body>
 
 </html>

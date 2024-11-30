@@ -180,7 +180,7 @@ $(document).ready(function () {
         }
     }
 
-    function updateFieldIDs() {
+    function updateCropFieldIDs() {
         $('cropFieldSelectID').empty();
     
         const defaultOption = document.createElement("option");
@@ -209,7 +209,7 @@ $(document).ready(function () {
     }
     
     $('#cropFieldSelectID').on('focus', () => {
-        updateFieldIDs();
+        updateCropFieldIDs();
     });
 
 
