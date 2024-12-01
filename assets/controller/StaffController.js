@@ -489,7 +489,6 @@ $(document).ready(function () {
     $('#search-staff-btn').on('click', () => {
         let staffId = $('#staffCode').val();
         console.log("Searching for staff with ID:", staffId);
-        updateFieldIDs();
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffId,
             type: "GET",

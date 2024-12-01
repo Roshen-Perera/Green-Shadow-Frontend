@@ -334,7 +334,7 @@
       <div class=" row">
         <div class="col">
           <label class="form-label">Image</label>
-          <input id="cropImage" type="file" class="form-control" id="cropImage">
+          <input id="cropImage" type="file" class="form-control">
           <label id="cropImageCheck" style="color: red;"></label>
         </div>
         <div class="col">
@@ -532,82 +532,68 @@
       <div class=" row">
         <div class="col-2">
           <label class="form-label">Log code</label>
-          <input type="text" class="form-control" placeholder="Ex: L0001" aria-label="Log code">
+          <input type="text" class="form-control" id="logCode" placeholder="Ex: L0001" aria-label="Log code">
+          <label id="logCodeCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Log Date</label>
-          <input type="text" class="form-control" id="log-date" readonly aria-label="Log Date">
+          <input type="text" class="form-control" id="logDate" readonly aria-label="Log Date">
+          <label id="logDateCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Log Observation</label>
-          <input type="text" class="form-control" placeholder="Ex: httk kawa" id="log-observe"
+          <input type="text" class="form-control" placeholder="Ex: Observation " id="logDetails"
             aria-label="Log Observation">
+          <label id="logDetailsCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Observered Image</label>
-          <input type="file" class="form-control" id="ObserveredImage">
+          <input type="file" class="form-control" id="logImage">
+          <label id="logImageCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Field</label>
-          <select class="form-control" aria-label="Field">
-            <option value="" disabled selected>Select relevant field</option>
+          <select class="form-select" id="logFieldCode" required>
+            <option selected disabled value=""></option>
           </select>
-        </div>
-        <div class="col">
-          <label class="form-label">Staff</label>
-          <select class="form-control" aria-label="Staff">
-            <option value="" disabled selected>Select staff member</option>
-          </select>
+          <label id="logFieldCodeCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Crop</label>
-          <select class="form-control" aria-label="Crop">
-            <option value="" disabled selected>Select crop member</option>
+          <select class="form-select" id="logCropCode" required>
+            <option selected disabled value=""></option>
           </select>
+          <label id="logCropCodeCheck" style="color: red;"></label>
+        </div>
+        <div class="col">
+          <label class="form-label">Staff</label>
+          <select class="form-select" id="logStaffCode" required>
+            <option selected disabled value=""></option>
+          </select>
+          <label id="logStaffCodeCheck" style="color: red;"></label>
         </div>
       </div>
       <div class="custom-button">
-        <button type="button" class="btn btn-primary">Search</button>
-        <button type="button" class="btn btn-success">Add</button>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-warning">Update</button>
-        <button type="button" class="btn btn-info">Clear</button>
+        <button type="button" id="search-log-btn" class="btn btn-primary">Search</button>
+        <button type="button" id="add-log-btn" class="btn btn-success">Add</button>
+        <button type="button" id="delete-log-btn" class="btn btn-danger">Delete</button>
+        <button type="button" id="update-log-btn" class="btn btn-warning">Update</button>
+        <button type="button" id="clear-log-btn" class="btn btn-info">Clear</button>
       </div>
       <div class="custom-table table-responsive p-3">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Equipment Code</th>
-              <th scope="col">Name</th>
-              <th scope="col">Type</th>
-              <th scope="col">Fuel Type</th>
-              <th scope="col">Availability</th>
-              <th scope="col">Status</th>
-              <th scope="col">Staff</th>
+              <th scope="col">Log Code</th>
+              <th scope="col">Date</th>
+              <th scope="col">Details</th>
+              <th scope="col">Observered Image</th>
               <th scope="col">Field</th>
+              <th scope="col">Crop</th>
+              <th scope="col">Staff</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>E001</td>
-              <td>Tractor</td>
-              <td>Mechanical</td>
-              <td>Diesel</td>
-              <td>Available</td>
-              <td>Operational</td>
-              <td>John Doe</td>
-              <td>Agriculture</td>
-            </tr>
-            <tr>
-              <td>E002</td>
-              <td>Plough</td>
-              <td>Mechanical</td>
-              <td>None</td>
-              <td>Unavailable</td>
-              <td>Under Maintenance</td>
-              <td>Jane Smith</td>
-              <td>Agriculture</td>
-            </tr>
+          <tbody id="log-table">
           </tbody>
         </table>
       </div>
@@ -618,7 +604,8 @@
       <div class=" row">
         <div class="col-2">
           <label class="form-label">Equipment code</label>
-          <input id="equipmentCode" type="text" class="form-control" placeholder="Ex: V0001" aria-label="Equipment code">
+          <input id="equipmentCode" type="text" class="form-control" placeholder="Ex: V0001"
+            aria-label="Equipment code">
           <label id="equipmentCodeCheck" style="color: red;"></label>
         </div>
         <div class="col">
@@ -681,7 +668,7 @@
             </tr>
           </thead>
           <tbody id="equipment-table">
-            
+
           </tbody>
         </table>
       </div>
@@ -697,12 +684,14 @@
         </div>
         <div class="col">
           <label class="form-label">License plate number </label>
-          <input id="vehicleLicenseNumber" type="text" class="form-control" placeholder="Ex: LY-5495" aria-label="License plate number ">
+          <input id="vehicleLicenseNumber" type="text" class="form-control" placeholder="Ex: LY-5495"
+            aria-label="License plate number ">
           <label id="vehicleLicenseNumberCheck" style="color: red;"></label>
         </div>
         <div class="col">
           <label class="form-label">Vehicle category </label>
-          <input id="vehicleCategory" type="text" class="form-control" placeholder="Ex: Lorry" aria-label="Vehicle category ">
+          <input id="vehicleCategory" type="text" class="form-control" placeholder="Ex: Lorry"
+            aria-label="Vehicle category ">
           <label id="vehicleCategoryCheck" style="color: red;"></label>
         </div>
         <div class="col">
@@ -862,7 +851,7 @@
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const dd = String(today.getDate()).padStart(2, '0');
-    document.getElementById('log-date').value = `${yyyy}-${mm}-${dd}`;
+    document.getElementById('logDate').value = `${yyyy}-${mm}-${dd}`;
   </script>
   <script>
     $("#navigation").css({ display: "block" });
@@ -873,8 +862,8 @@
     $("#field_page").css({ display: "none" });
     $("#crop_page").css({ display: "none" });
     $("#vehicle_page").css({ display: "none" });
-    $("#equipment_page").css({ display: "block" });
-    $("#log_page").css({ display: "none" });
+    $("#equipment_page").css({ display: "none" });
+    $("#log_page").css({ display: "block" });
     $("#user_page").css({ display: "none" });
 
 
@@ -1051,6 +1040,7 @@
   <script type="module" src="assets/controller/StaffController.js"></script>
   <script type="module" src="assets/controller/VehicleController.js"></script>
   <script type="module" src="assets/controller/EquipmentController.js"></script>
+  <script type="module" src="assets/controller/LogController.js"></script>
 </body>
 
 </html>

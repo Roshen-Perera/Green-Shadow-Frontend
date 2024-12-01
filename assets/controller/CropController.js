@@ -180,19 +180,19 @@ $(document).ready(function () {
         }
     }
 
-    function updateCropFieldIDs() {
-        $('cropFieldSelectID').empty();
-    
+    function updateFieldIDs() {
+        $("#cropFieldSelectID").empty();
+
         const defaultOption = document.createElement("option");
         defaultOption.text = "Select field ID";
         defaultOption.value = ""; // Set an empty value for the default option
         $('#cropFieldSelectID').append(defaultOption);
-    
+
         // Fetch customer data from the server
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -207,10 +207,12 @@ $(document).ready(function () {
             }
         });
     }
-    
+
     $('#cropFieldSelectID').on('focus', () => {
-        updateCropFieldIDs();
+        updateFieldIDs();
     });
+
+    
 
 
     $("#crop-table").on('click', 'tr', function () {

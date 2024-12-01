@@ -201,37 +201,37 @@ $(document).ready(function () {
         updateEquipmentStaffIDs();
     });
 
-    // function updateEquipmentFieldIDs() {
-    //     $('equipmentFieldSelectID').empty();
+    function updateEquipmentFieldIDs() {
+        $('#equipmentFieldSelectID').empty();
     
-    //     const defaultOption = document.createElement("option");
-    //     defaultOption.text = "Select field ID";
-    //     defaultOption.value = ""; // Set an empty value for the default option
-    //     $('#equipmentFieldSelectID').append(defaultOption);
+        const defaultOption = document.createElement("option");
+        defaultOption.text = "Select field ID";
+        defaultOption.value = ""; // Set an empty value for the default option
+        $('#equipmentFieldSelectID').append(defaultOption);
     
-    //     // Fetch customer data from the server
-    //     $.ajax({
-    //         url: "http://localhost:4010/green-shadow/api/v1/fields",
-    //         type: "GET",
-    //         headers: {"Content-Type": "application/json"},
-    //         success: (res) => {
-    //             // Assuming `res` is an array of customer objects
-    //             res.forEach(field => {
-    //                 const option = document.createElement("option");
-    //                 option.value = field.fieldCode; // Set value to customer ID
-    //                 option.text = field.fieldCode; // Display customer ID in dropdown
-    //                 $('#equipmentFieldSelectID').append(option);
-    //             });
-    //         },
-    //         error: (res) => {
-    //             console.error('Error fetching field data:', res);
-    //         }
-    //     });
-    // }
+        // Fetch customer data from the server
+        $.ajax({
+            url: "http://localhost:4010/green-shadow/api/v1/fields",
+            type: "GET",
+            headers: {"Content-Type": "application/json"},
+            success: (res) => {
+                // Assuming `res` is an array of customer objects
+                res.forEach(field => {
+                    const option = document.createElement("option");
+                    option.value = field.fieldCode; // Set value to customer ID
+                    option.text = field.fieldCode; // Display customer ID in dropdown
+                    $('#equipmentFieldSelectID').append(option);
+                });
+            },
+            error: (res) => {
+                console.error('Error fetching field data:', res);
+            }
+        });
+    }
     
-    // $('#equipmentFieldSelectID').on('focus', () => {
-    //     updateEquipmentFieldIDs()    
-    // });
+    $('#equipmentFieldSelectID').on('focus', () => {
+        updateEquipmentFieldIDs()    
+    });
 
 
     
