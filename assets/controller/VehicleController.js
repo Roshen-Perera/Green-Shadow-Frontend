@@ -1,8 +1,8 @@
-$(document).ready(function () {
+
 
     var recordIndex = undefined;
 
-    loadTableVehicle()
+  //  loadTableVehicle()
 
     let vehicleCodeError = true;
     let licenseNumberError = true;
@@ -12,7 +12,7 @@ $(document).ready(function () {
     let vehicleStaffError = true;
     let vehicleRemarksError = true;
 
-    function loadTableVehicle() {
+    export function loadTableVehicle() {
         $('#vehicle-table').empty();
         console.log("Loading table...");
         
@@ -487,5 +487,3 @@ $(document).ready(function () {
         $('#vehicleStaffSelectID option:selected').text("");
         $('#vehicleRemarks').val("");
     }
-
-});

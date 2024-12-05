@@ -1,9 +1,8 @@
-$(document).ready(function () {
 
     
     var recordIndex = undefined;
 
-    loadTableField()
+  //  loadTableField()
     let codeError = true;
     let nameError = true;
     let locationError = true;
@@ -27,7 +26,7 @@ $(document).ready(function () {
         return "";
     }
 
-    function loadTableField() {
+    export function loadTableField() {
         $('#field-table').empty();
         console.log("Loading field data...");
         
@@ -431,4 +430,4 @@ $("#field-table").on('click', 'tr', function () {
         $('#inputGroupFile02').val('');
     }
 
-});
+//});

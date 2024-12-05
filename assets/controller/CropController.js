@@ -1,8 +1,8 @@
-$(document).ready(function () {
+// $(document).ready(function () {
 
     var recordIndex = undefined;
 
-    loadTableCrop()
+ //   loadTableCrop()
 
     let codeCropError = true;
     let commonNameError = true;
@@ -28,7 +28,7 @@ $(document).ready(function () {
         return "";
     }
 
-    function loadTableCrop() {
+    export function loadTableCrop() {
         $('#crop-table').empty();
         console.log("Loading crop data...");
         
@@ -488,4 +488,4 @@ $(document).ready(function () {
         $('#fieldSelectID').val("");
     }
 
-});
+// });

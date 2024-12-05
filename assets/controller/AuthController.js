@@ -1,4 +1,12 @@
-$(document).ready(function () {
+import { loadTableField } from "./FieldController.js";
+import { loadTableCrop } from "./CropController.js";
+import { loadTableVehicle } from "./VehicleController.js";
+import { loadTableEquipment } from "./EquipmentController.js";
+import { loadTableLog } from "./LogController.js";
+import { loadTableStaff } from "./StaffController.js";
+
+
+// $(document).ready(function () {
 
     $("#login-submit-btn").on("click", function () {
 
@@ -31,6 +39,14 @@ $(document).ready(function () {
                 if (token) {
                     document.cookie = "token= "+token;
                     console.log("Token received: ", token);
+                    
+                    loadTableField()
+                    loadTableCrop()
+                    loadTableVehicle()
+                    loadTableEquipment()
+                    loadTableLog()
+                    loadTableStaff()
+
                     $("#navigation").css({ display: "block" });
                     $("#login_page").css({ display: "none" });
                     $("#register_page").css({ display: "none" });
@@ -42,6 +58,7 @@ $(document).ready(function () {
                     $("#equipment_page").css({ display: "none" });
                     $("#log_page").css({ display: "none" });
                     $("#user_page").css({ display: "none" });
+                    
                 } else {
                     alert("Login successful, but token not received.");
                 }
@@ -98,4 +115,4 @@ $(document).ready(function () {
         });
     });
 
-});
+// });

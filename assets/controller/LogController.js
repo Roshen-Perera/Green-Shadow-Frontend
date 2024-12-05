@@ -1,8 +1,6 @@
-$(document).ready(function () {
+// $(document).ready(function () {
 
     var recordIndex = undefined;
-
-    loadTableLog()
 
     let logCodeError = true;
     let logDateError = true;
@@ -29,7 +27,7 @@ $(document).ready(function () {
     }
 
 
-    function loadTableLog() {
+    export function loadTableLog() {
         $('#log-table').empty();
         console.log("Loading table...");
 
@@ -565,4 +563,4 @@ $(document).ready(function () {
         $('#fieldSelectID').val("");
     }
 
-});
+// });

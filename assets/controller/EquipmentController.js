@@ -1,8 +1,8 @@
-$(document).ready(function () {
+//$(document).ready(function () {
 
     var recordIndex = undefined;
 
-    loadTableEquipment()
+  //  loadTableEquipment()
 
     let equipmentCodeError = true;
     let equipmentNameError = true;
@@ -28,7 +28,7 @@ $(document).ready(function () {
     }
 
 
-    function loadTableEquipment() {
+    export function loadTableEquipment() {
         $('#equipment-table').empty();
         console.log("Loading table...");
         
@@ -502,4 +502,4 @@ $(document).ready(function () {
         $('#equipmentFieldSelectID').val("");
     }
 
-});
+//});

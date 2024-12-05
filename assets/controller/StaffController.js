@@ -1,8 +1,8 @@
-$(document).ready(function () {
+// $(document).ready(function () {
 
     var recordIndex = undefined;
 
-    loadTableStaff()
+//    loadTableStaff()
 
     let staffCodeError = true;
     let staffFirstNameError = true;
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
 
 
-    function loadTableStaff() {
+    export function loadTableStaff() {
         $('#staff-table').empty();
         console.log("Loading table...");
 
@@ -801,4 +801,4 @@ $(document).ready(function () {
         $("#staffFieldSelectID").val("");
     }
 
-});
+// });
