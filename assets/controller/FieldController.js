@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    
     var recordIndex = undefined;
 
     loadTableField()
@@ -10,12 +11,32 @@ $(document).ready(function () {
     let image1Error = true;
     let image2Error = true;
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
 
     function loadTableField() {
         $('#field-table').empty();
+        console.log("Loading field data...");
+        
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            },
             success: function (results) {
                 $('#Field-table').empty();
                 results.forEach(function (post) {
@@ -33,7 +54,7 @@ $(document).ready(function () {
                                 </tr>`;        
                 $('#field-table').append(record);
                 });
-                $('#FieldCount').text(results.length);
+                $('#fieldCount').text(results.length);
             },
             error: function (error) {
                 console.log(error);
@@ -218,7 +239,11 @@ $("#field-table").on('click', 'tr', function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/fields/"+fieldCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${getCookie('token')}`
+                },
+                
                 success: (res) => {
                     
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -235,6 +260,8 @@ $("#field-table").on('click', 'tr', function () {
                             form.append("fieldImage2", image2, image2.name);
                         }
 
+                        console.log(getCookie('token'));
+                        
                         var settings = {
                             "url": "http://localhost:4010/green-shadow/api/v1/fields",
                             "method": "POST",
@@ -242,7 +269,10 @@ $("#field-table").on('click', 'tr', function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                "Authorization": `Bearer ${getCookie('token')}`
+                            },
                         };
                         $.ajax(settings).done(function (response) {
                             loadTableField();
@@ -280,9 +310,12 @@ $("#field-table").on('click', 'tr', function () {
         }
 
         var settings = {
-            "url": "http://localhost:4010/green-shadow/api/v1/fields/F002",
+            "url": "http://localhost:4010/green-shadow/api/v1/fields/"+fieldCode,
             "method": "DELETE",
             "timeout": 0,
+            "headers": {
+                "Authorization": `Bearer ${getCookie('token')}`
+            },
         };
           
         $.ajax(settings)
@@ -320,7 +353,10 @@ $("#field-table").on('click', 'tr', function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/fields/"+fieldCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${getCookie('token')}`
+                },
                 success: (res) => {
                     
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -342,12 +378,15 @@ $("#field-table").on('click', 'tr', function () {
                         // AJAX settings for sending the form data
                         var settings = {
                             "url": "http://localhost:4010/green-shadow/api/v1/fields",
-                            "method": "POST",
+                            "method": "PATCH",
                             "timeout": 0,
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                "Authorization": `Bearer ${getCookie('token')}`
+                            },
                         };
 
                         // Making the AJAX call

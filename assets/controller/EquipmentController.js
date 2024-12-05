@@ -11,6 +11,22 @@ $(document).ready(function () {
     let equipmentStaffError = true;
     let equipmentFieldError = true;
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
+
 
     function loadTableEquipment() {
         $('#equipment-table').empty();
@@ -18,6 +34,9 @@ $(document).ready(function () {
         
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/equipments",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            }, 
             method: "GET",
             success: function (results) {
                 $('#equipment-table').empty();
@@ -64,18 +83,18 @@ $(document).ready(function () {
     }
 
     function validateEquipmentName(){
-        //var isValidateEquipmentName = new RegExp("^E\\d{3}$");
+        var isValidateEquipmentName = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#equipmentName').val() === "") {
             $("#equipmentName").css({"border-color": "red"});
             $("#equipmentNameCheck").empty();
             $("#equipmentNameCheck").append("equipment Name missing");
             equipmentNameError = false;
             return false;
-        // } else if (!isValidateEquipmentName.test($('#equipmentName').val())) {
-        //     $("#equipmentName").css({"border-color": "red"});
-        //     $("#equipmentNameCheck").empty();
-        //     $("#equipmentNameCheck").append("Invalid equipment Name");
-        //     equipmentNameError = false;
+        } else if (!isValidateEquipmentName.test($('#equipmentName').val())) {
+            $("#equipmentName").css({"border-color": "red"});
+            $("#equipmentNameCheck").empty();
+            $("#equipmentNameCheck").append("Invalid equipment Name");
+            equipmentNameError = false;
             return false;
         } else {
             $("#equipmentName").css({"border-color": "green"});
@@ -85,18 +104,18 @@ $(document).ready(function () {
     }
 
     function validateEquipmentType(){
-        //var isValidateEquipmentType = new RegExp("^E\\d{3}$");
+        var isValidateEquipmentType = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#equipmentType option:selected').text() === "") {
             $("#equipmentType").css({"border-color": "red"});
             $("#equipmentTypeCheck").empty();
             $("#equipmentTypeCheck").append("equipment Type missing");
             equipmentTypeError = false;
             return false;
-        // } else if (!isValidateEquipmentType.test($('#equipmetextype option:selected').val())) {
-        //     $("#equipmentType").css({"border-color": "red"});
-        //     $("#equipmentTypeCheck").empty();
-        //     $("#equipmentTypeCheck").append("Invalid equipment Type");
-        //     equipmentTypeError = false;
+        } else if (!isValidateEquipmentType.test($('#equipmentType option:selected').val())) {
+            $("#equipmentType").css({"border-color": "red"});
+            $("#equipmentTypeCheck").empty();
+            $("#equipmentTypeCheck").append("Invalid equipment Type");
+            equipmentTypeError = false;
             return false;
         } else {
             $("#equipmentType").css({"border-color": "green"});
@@ -106,18 +125,18 @@ $(document).ready(function () {
     }
 
     function validateEquipmentStatus(){
-        //var isValidateEquipmentStatus = new RegExp("^E\\d{3}$");
+        var isValidateEquipmentStatus = new RegExp("^[A-Za-z0-9 ]{5,50}$");
         if ($('#equipmentStatus option:selected').text() === "") {
             $("#equipmentStatus").css({"border-color": "red"});
             $("#equipmentStatusCheck").empty();
             $("#equipmentStatusCheck").append("equipment Status missing");
             equipmentStatusError = false;
             return false;
-        // } else if (!isValidateEquipmentStatus.test($('#equipmetexttatus option:selected').val())) {
-        //     $("#equipmentStatus").css({"border-color": "red"});
-        //     $("#equipmentStatusCheck").empty();
-        //     $("#equipmentStatusCheck").append("Invalid equipment Status");
-        //     equipmentStatusError = false;
+        } else if (!isValidateEquipmentStatus.test($('#equipmentStatus option:selected').val())) {
+            $("#equipmentStatus").css({"border-color": "red"});
+            $("#equipmentStatusCheck").empty();
+            $("#equipmentStatusCheck").append("Invalid equipment Status");
+            equipmentStatusError = false;
             return false;
         } else {
             $("#equipmentStatus").css({"border-color": "green"});
@@ -127,18 +146,18 @@ $(document).ready(function () {
     }
 
     function validateEquipmentStaffCode(){
-        //var isValidateEquipmentStaffCode = new RegExp("^E\\d{3}$");
+        var isValidateEquipmentStaffCode = new RegExp("^S\\d{3}$");
         if ($('#equipmentStaffSelectID option:selected').text() === "") {
             $("#equipmentStaffSelectID").css({"border-color": "red"});
             $("#equipmentStaffCodeCheck").empty();
             $("#equipmentStaffCodeCheck").append("equipment StaffCode missing");
             equipmentStaffError = false;
             return false;
-        // } else if (!isValidateEquipmentStaffCode.test($('#equipmentSttextCode option:selected').val())) {
-        //     $("#equipmentStaffSelectID").css({"border-color": "red"});
-        //     $("#equipmentStaffCodeCheck").empty();
-        //     $("#equipmentStaffCodeCheck").append("Invalid equipment StaffCode");
-        //     equipmentStaffCodeError = false;
+        } else if (!isValidateEquipmentStaffCode.test($('#equipmentStaffSelectID option:selected').val())) {
+            $("#equipmentStaffSelectID").css({"border-color": "red"});
+            $("#equipmentStaffCodeCheck").empty();
+            $("#equipmentStaffCodeCheck").append("Invalid equipment StaffCode");
+            equipmentStaffError = false;
             return false;
         } else {
             $("#equipmentStaffSelectID").css({"border-color": "green"});
@@ -148,18 +167,18 @@ $(document).ready(function () {
     }
 
     function validateEquipmentField(){
-        //var isValidateEquipmentField = new RegExp("^E\\d{3}$");
-        if ($('#equipmentFieldSelectID option:selected').text() === "") {
+        var isValidateEquipmentField = new RegExp("^F\\d{3}$");
+        if ($('#equipmentFieldSelectID option:selected').val() === "") {
             $("#equipmentFieldSelectID").css({"border-color": "red"});
             $("#equipmentFieldCheck").empty();
             $("#equipmentFieldCheck").append("equipment Field missing");
             equipmentFieldError = false;
             return false;
-        // } else if (!isValidateEquipmentField.test($('#equipmentField texttion:selected').val())) {
-        //     $("#equipmentFieldSelectID").css({"border-color": "red"});
-        //     $("#equipmentFieldCheck").empty();
-        //     $("#equipmentFieldCheck").append("Invalid equipment Field");
-        //     equipmentFieldError = false;
+        } else if (!isValidateEquipmentField.test($('#equipmentFieldSelectID option:selected').val())) {
+            $("#equipmentFieldSelectID").css({"border-color": "red"});
+            $("#equipmentFieldCheck").empty();
+            $("#equipmentFieldCheck").append("Invalid equipment Field");
+            equipmentFieldError = false;
             return false;
         } else {
             $("#equipmentFieldSelectID").css({"border-color": "green"});
@@ -181,7 +200,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(staff => {
@@ -213,7 +232,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -274,7 +293,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/equipments/"+equipmentId,
             type: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 console.log(JSON.stringify(res));
                 if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -314,7 +333,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/equipments/"+equipmentCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -333,7 +352,10 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`
+                            }
                         };
             
                         $.ajax(settings).done(function (response) {
@@ -376,8 +398,12 @@ $(document).ready(function () {
 
         var settings = {
             "url": "http://localhost:4010/green-shadow/api/v1/equipments/"+equipmentCode,
+            
             "method": "DELETE",
             "timeout": 0,
+            "headers": {
+                "Authorization": `Bearer ${getCookie('token')}`
+            }
         };
           
         $.ajax(settings)
@@ -415,7 +441,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/equipments/"+equipmentCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -437,7 +463,11 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
+                            "headers": {
+                                "Authorization": `Bearer ${getCookie('token')}`
+                            },
                             "data": form
+                            
                         };
             
                         $.ajax(settings).done(function (response) {

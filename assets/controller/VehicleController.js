@@ -19,6 +19,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/vehicle",
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            },
             success: function (results) {
                 $('#vehicle-table').empty();
                 results.forEach(function (post) {
@@ -43,6 +46,22 @@ $(document).ready(function () {
         });
     }
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
+
     function validateVehicleCode(){
         var isValidVehicleCode = new RegExp("^V\\d{3}$");
         if ($('#vehicleCode').val() === "") {
@@ -65,19 +84,19 @@ $(document).ready(function () {
     }
 
     function validateLicenseNumber(){
-       // var isValidVehicleLicenseNumber = new RegExp("^([A-Z]{1,2})\s([A-Z]{1,3})\s([0-9]{4}(?<!0{4}))");
+        var isValidVehicleLicenseNumber = new RegExp("^([a-zA-Z]{1,3}|([0-9]{1,3}))-[0-9]{4}");
         if ($('#vehicleLicenseNumber').val() === "") {
             $("#vehicleLicenseNumber").css({"border-color": "red"});
             $("#vehicleLicenseNumberCheck").empty();
             $("#vehicleLicenseNumberCheck").append("vehicle Common Name missing");
             licenseNumberError = false;
             return false;
-        // } else if (!isValidVehicleLicenseNumber.test($('#vehicleLicenseNumber').val())) {
-        //     $("#vehicleLicenseNumber").css({"border-color": "red"});
-        //     $("#vehicleLicenseNumberCheck").empty();
-        //     $("#vehicleLicenseNumberCheck").append("Invalid vehicle Common Name");
-        //     licenseNumberError = false;
-        //     return false;
+        } else if (!isValidVehicleLicenseNumber.test($('#vehicleLicenseNumber').val())) {
+            $("#vehicleLicenseNumber").css({"border-color": "red"});
+            $("#vehicleLicenseNumberCheck").empty();
+            $("#vehicleLicenseNumberCheck").append("Invalid vehicle Common Name");
+            licenseNumberError = false;
+            return false;
         } else {
             $("#vehicleLicenseNumber").css({"border-color": "green"});
             $("#vehicleLicenseNumberCheck").empty();
@@ -107,19 +126,19 @@ $(document).ready(function () {
     }
 
     function validateVehicleFuelType(){
-      //  var isValidVehicleFuelType = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#vehicleFuelType option:selected').text() === "") {
+        var isValidVehicleFuelType = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($('#vehicleFuelType option:selected').val() === "") {
             $("#vehicleFuelType").css({"border-color": "red"});
             $("#vehicleFuelTypeCheck").empty();
-            $("#vehicleFuelTypeCheck").append("vehicle Common Name missing");
+            $("#vehicleFuelTypeCheck").append("vehicle Fuel type missing");
             vehicleFuelTypeError = false;
             return false;
-        // } else if (!isValidVehicleFuelType.test($('#vehicleFuelType').val())) {
-        //     $("#vehicleFuelType").css({"border-color": "red"});
-        //     $("#vehicleFuelTypeCheck").empty();
-        //     $("#vehicleFuelTypeCheck").append("Invalid vehicle Common Name");
-        //     vehicleFuelTypeError = false;
-        //     return false;
+        } else if (!isValidVehicleFuelType.test($('#vehicleFuelType').val())) {
+            $("#vehicleFuelType").css({"border-color": "red"});
+            $("#vehicleFuelTypeCheck").empty();
+            $("#vehicleFuelTypeCheck").append("Invalid vehicle Fuel type");
+            vehicleFuelTypeError = false;
+            return false;
         } else {
             $("#vehicleFuelType").css({"border-color": "green"});
             $("#vehicleFuelTypeCheck").empty();
@@ -128,19 +147,19 @@ $(document).ready(function () {
     }
 
     function validateVehicleStatus(){
-        //var isValidVehicleStatus = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($('#vehicleStatus option:selected').text() === "") {
+        var isValidVehicleStatus = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        if ($('#vehicleStatus option:selected').val() === "") {
             $("#vehicleStatus").css({"border-color": "red"});
             $("#vehicleStatusCheck").empty();
             $("#vehicleStatusCheck").append("vehicle Common Name missing");
             vehicleStatusError = false;
             return false;
-        // } else if (!isValidVehicleStatus.test($('#vehicleStatus').val())) {
-        //     $("#vehicleStatus").css({"border-color": "red"});
-        //     $("#vehicleStatusCheck").empty();
-        //     $("#vehicleStatusCheck").append("Invalid vehicle Common Name");
-        //     vehicleStatusError = false;
-        //     return false;
+        } else if (!isValidVehicleStatus.test($('#vehicleStatus option:selected').val())) {
+            $("#vehicleStatus").css({"border-color": "red"});
+            $("#vehicleStatusCheck").empty();
+            $("#vehicleStatusCheck").append("Invalid vehicle Common Name");
+            vehicleStatusError = false;
+            return false;
         } else {
             $("#vehicleStatus").css({"border-color": "green"});
             $("#vehicleStatusCheck").empty();
@@ -149,19 +168,19 @@ $(document).ready(function () {
     }
 
     function validateVehicleStaff(){
-        // var isValidVehicleStaff = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        var isValidVehicleStaff = new RegExp("^S\\d{3}$");
         if ($('#vehicleStaffSelectID option:selected').text() === "") {
             $("#vehicleStaffSelectID").css({"border-color": "red"});
             $("#vehicleStaffCodeCheck").empty();
             $("#vehicleStaffCodeCheck").append("vehicle Common Name missing");
             vehicleStaffError = false;
             return false;
-        // } else if (!isValidVehicleStaff.test($('#vehicleStaffSelectID').val())) {
-        //     $("#vehicleStaffSelectID").css({"border-color": "red"});
-        //     $("#vehicleStaffCodeCheck").empty();
-        //     $("#vehicleStaffCodeCheck").append("Invalid vehicle Common Name");
-        //     vehicleStaffError = false;
-        //     return false;
+        } else if (!isValidVehicleStaff.test($('#vehicleStaffSelectID option:selected').val())) {
+            $("#vehicleStaffSelectID").css({"border-color": "red"});
+            $("#vehicleStaffCodeCheck").empty();
+            $("#vehicleStaffCodeCheck").append("Invalid vehicle Common Name");
+            vehicleStaffError = false;
+            return false;
         } else {
             $("#vehicleStaffSelectID").css({"border-color": "green"});
             $("#vehicleStaffCodeCheck").empty();
@@ -202,7 +221,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(staff => {
@@ -262,7 +281,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/vehicle/"+vehicleId,
             type: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 console.log(JSON.stringify(res));
                 $('#vehicleLicenseNumber').val(res.licensePlate);
@@ -299,7 +318,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/vehicle/"+vehicleCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -318,7 +337,10 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            },
                         };
             
                         $.ajax(settings).done(function (response) {
@@ -330,6 +352,7 @@ $(document).ready(function () {
                             console.error("Error:", error);
                         });
                     } else{
+                        alert("Vehicle already exists");
                         console.log("vehicle already exists");
                     }
                 },
@@ -363,6 +386,9 @@ $(document).ready(function () {
         var settings = {
             "url": "http://localhost:4010/green-shadow/api/v1/vehicle/"+vehicleCode,
             "method": "DELETE",
+            "headers": {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            },
             "timeout": 0,
         };
           
@@ -401,7 +427,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/vehicle/"+vehicleCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -423,7 +449,10 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            },
                         };
             
                         $.ajax(settings).done(function (response) {

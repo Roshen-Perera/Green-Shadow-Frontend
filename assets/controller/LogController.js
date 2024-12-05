@@ -12,6 +12,23 @@ $(document).ready(function () {
     let logCropCodeError = true;
     let logStaffCodeError = true;
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
+
+
     function loadTableLog() {
         $('#log-table').empty();
         console.log("Loading table...");
@@ -19,6 +36,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/log",
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            }, 
             success: function (results) {
                 $('#log-table').empty();
                 results.forEach(function (post) {
@@ -204,7 +224,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -236,7 +256,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/crop",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(crop => {
@@ -268,7 +288,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(staff => {
@@ -330,7 +350,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/log/" + logId,
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
             success: (res) => {
                 console.log(JSON.stringify(res));
                 $('#logCode').val(res.logCode);
@@ -370,7 +390,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/log/" + logCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -391,6 +411,9 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            }, 
                             "data": form
                         };
 
@@ -437,6 +460,9 @@ $(document).ready(function () {
         var settings = {
             "url": "http://localhost:4010/green-shadow/api/v1/log/" + logCode,
             "method": "DELETE",
+            "headers": {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            }, 
             "timeout": 0,
         };
 
@@ -477,7 +503,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/log/" + logCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
                 success: (res) => {
 
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -500,6 +526,9 @@ $(document).ready(function () {
                             "timeout": 0,
                             "processData": false,
                             "mimeType": "multipart/form-data",
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            }, 
                             "contentType": false,
                             "data": form
                         };

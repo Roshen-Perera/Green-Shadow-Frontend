@@ -12,13 +12,32 @@ $(document).ready(function () {
     let seasonError = true;
     let codeFieldError = true;
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
+
     function loadTableCrop() {
         $('#crop-table').empty();
-        console.log("Loading table...");
+        console.log("Loading crop data...");
         
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/crop",
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            },  
             success: function (results) {
                 $('#crop-table').empty();
                 results.forEach(function (post) {
@@ -165,16 +184,17 @@ $(document).ready(function () {
         }
     }
 
-    function validateFieldCode(){
-        if ($('#fieldSelectID option:selected').text() === "") {
-            $("#fieldSelectID").css({"border-color": "red"});
+    function validateCropFieldCode(){
+        if ($('#cropFieldSelectID option:selected').text() === "") {
+            $("#cropFieldSelectID").css({"border-color": "red"});
+            $("#fieldCodeCheck").empty();
             $("#fieldCodeCheck").append("Field Code missing");
             console.log("Field Code missing");     
             codeFieldError = false;
             return false;
         } else {
             console.log("Field Code present");
-            $("#fieldSelectID").css({"border-color": "green"});
+            $("#cropFieldSelectID").css({"border-color": "green"});
             $("#fieldCodeCheck").empty();
             codeFieldError = true;
         }
@@ -192,7 +212,10 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${getCookie('token')}`
+            },
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -252,7 +275,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropId,
             type: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json",
+                    'Authorization': `Bearer ${getCookie('token')}`
+            },
             success: (res) => {
                 console.log(JSON.stringify(res));
                 $('#cropCode').val(res.code);
@@ -275,7 +300,7 @@ $(document).ready(function () {
         validateImage()
         validateCategory()
         validateSeason()
-        validateFieldCode()
+        validateCropFieldCode()
         if (codeCropError === true && commonNameError === true && scientificNameError === true && imageError === true && categoryError === true && seasonError === true && codeFieldError === true) {
             var cropCode = $("#cropCode").val();
             var cropCommonName = $("#cropCommonName").val();
@@ -283,12 +308,15 @@ $(document).ready(function () {
             var cropImage = $("#cropImage").prop('files')[0];
             var cropCategory = $("#cropCategory").val();
             var cropSeason = $("#cropSeason").val();
-            var fieldCode = $("#fieldSelectID option:selected").text();
+            var fieldCode = $("#cropFieldSelectID option:selected").val();
+
+            console.log(" fieldCode", fieldCode);
+            
 
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -307,6 +335,9 @@ $(document).ready(function () {
                             "url": "http://localhost:4010/green-shadow/api/v1/crop",
                             "method": "POST",
                             "timeout": 0,
+                            "headers": {
+                                "Authorization": `Bearer ${getCookie('token')}`,
+                            },
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
@@ -322,6 +353,7 @@ $(document).ready(function () {
                             console.error("Error:", error);
                         });
                     } else{
+                        alert("Crop already exists");
                         console.log("Crop already exists");
                     }
                 },
@@ -353,6 +385,9 @@ $(document).ready(function () {
             "url": "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
             "method": "DELETE",
             "timeout": 0,
+            "headers": {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            },
         };
           
         $.ajax(settings)
@@ -376,7 +411,7 @@ $(document).ready(function () {
         validateImage()
         validateCategory()
         validateSeason()
-        validateFieldCode()
+        validateCropFieldCode()
         if (codeCropError === true && commonNameError === true && scientificNameError === true && imageError === true && categoryError === true && seasonError === true && codeFieldError === true) {
             var cropCode = $("#cropCode").val();
             var cropCommonName = $("#cropCommonName").val();
@@ -384,13 +419,13 @@ $(document).ready(function () {
             var cropImage = $("#cropImage").prop('files')[0];
             var cropCategory = $("#cropCategory").val();
             var cropSeason = $("#cropSeason").val();
-            var fieldCode = $("#fieldSelectID option:selected").text();
+            var fieldCode = $("#cropFieldSelectID option:selected").val();
 
 
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/crop/"+cropCode,
                 type: "GET",
-                headers: {"Content-Type": "application/json"},
+                headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -410,10 +445,13 @@ $(document).ready(function () {
             
                         var settings = {
                             "url": "http://localhost:4010/green-shadow/api/v1/crop",
-                            "method": "POST",
+                            "method": "PATCH",
                             "timeout": 0,
                             "processData": false,
                             "mimeType": "multipart/form-data",
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            },
                             "contentType": false,
                             "data": form
                         };

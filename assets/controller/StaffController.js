@@ -21,6 +21,23 @@ $(document).ready(function () {
     let staffRoleError = true;
     let staffFieldError = true;
 
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    }
+
+
 
     function loadTableStaff() {
         $('#staff-table').empty();
@@ -29,6 +46,9 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff",
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            }, 
             success: function (results) {
                 $('#staff-table').empty();
                 results.forEach(function (post) {
@@ -147,28 +167,28 @@ $(document).ready(function () {
     }
 
     function validateStaffGender() {
-        var isValidStaffGender = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($("#staffGender").val() === "") {
-            $("#staffGender").css({ "border-color": "red" });
+        var isValidStaffGender = new RegExp("^[A-Za-z0-9 ]{4,50}$");
+        if ($("#staffGenderSelect option:selected").val() === "") {
+            $("#staffGenderSelect").css({ "border-color": "red" });
             $("#staffGenderCheck").empty();
             $("#staffGenderCheck").append("Staff gender missing");
             staffGenderError = false;
             return false;
-        } else if (!isValidStaffGender.test($("#staffGender").val())) {
+        } else if (!isValidStaffGender.test($("#staffGenderSelect option:selected").val())) {
             $("#staffGender").css({ "border-color": "red" });
             $("#staffGenderCheck").empty();
             $("#staffGenderCheck").append("Invalid Staff gender");
             staffGenderError = false;
             return false;
         } else {
-            $("#staffGender").css({ "border-color": "green" });
+            $("#staffGenderSelect").css({ "border-color": "green" });
             $("#staffGenderCheck").empty();
             staffGenderError = true;
         }
     }
 
     function validateStaffJoinedDate() {
-        var isValidStaffJoinedDate = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        var isValidStaffJoinedDate = new RegExp("(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d");
         if ($("#staffJoinedDate").val() === "") {
             $("#staffJoinedDate").css({ "border-color": "red" });
             $("#staffJoinedDateCheck").empty();
@@ -189,7 +209,7 @@ $(document).ready(function () {
     }
 
     function validateStaffDOB() {
-        var isValidStaffDOB = new RegExp("^[A-Za-z0-9 ]{5,50}$");
+        var isValidStaffDOB = new RegExp("(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d");
         if ($("#staffDOB").val() === "") {
             $("#staffDOB").css({ "border-color": "red" });
             $("#staffDOBCheck").empty();
@@ -238,12 +258,12 @@ $(document).ready(function () {
             $("#staffStreetCheck").append("Staff Street number missing");
             staffStreetError = false;
             return false;
-        // } else if (!isValidStaffStreet.test($("#staffStreet").val())) {
-        //     $("#staffStreet").css({ "border-color": "red" });
-        //     $("#staffStreetCheck").empty();
-        //     $("#staffStreetCheck").append("Invalid Staff Street number");
-        //     staffStreetError = false;
-        //     return false;
+        } else if (!isValidStaffStreet.test($("#staffStreet").val())) {
+            $("#staffStreet").css({ "border-color": "red" });
+            $("#staffStreetCheck").empty();
+            $("#staffStreetCheck").append("Invalid Staff Street number");
+            staffStreetError = false;
+            return false;
         } else {
             $("#staffStreet").css({ "border-color": "green" });
             $("#staffStreetCheck").empty();
@@ -315,19 +335,19 @@ $(document).ready(function () {
     }
     
     function validateStaffMobile() {
-        // var isValidStaffMobile = new RegExp("^(?:7|0|(?:\+94))[0-9]{9,10}$");
+        var isValidStaffMobile = new RegExp("^(?:0|94|\\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\\d)\\d{6}$");
         if ($("#staffMobile").val() === "") {
             $("#staffMobile").css({ "border-color": "red" });
             $("#staffMobileCheck").empty();
             $("#staffMobileCheck").append("Staff Mobile missing");
             staffMobileError = false;
             return false;
-        // } else if (!isValidStaffMobile.test($("#staffMobile").val())) {
-        //     $("#staffMobile").css({ "border-color": "red" });
-        //     $("#staffMobileCheck").empty();
-        //     $("#staffMobileCheck").append("Invalid Staff Mobile");
-        //     staffMobileError = false;
-        //     return false;
+        } else if (!isValidStaffMobile.test($("#staffMobile").val())) {
+            $("#staffMobile").css({ "border-color": "red" });
+            $("#staffMobileCheck").empty();
+            $("#staffMobileCheck").append("Invalid Staff Mobile");
+            staffMobileError = false;
+            return false;
         } else {
             $("#staffMobile").css({ "border-color": "green" });
             $("#staffMobileCheck").empty();
@@ -357,21 +377,21 @@ $(document).ready(function () {
     }
 
     function validateStaffRole() {
-        var isValidStaffRole = new RegExp("^[A-Za-z0-9 ]{5,50}$");
-        if ($("#staffRoleSelect").val() === "") {
+        var isValidStaffRole = new RegExp("^[A-Za-z0-9 ]{4,50}$");
+        if ($("#staffRoleSelect option:selected").val() === "") {
             $("#staffRoleSelect").css({ "border-color": "red" });
             $("#staffRoleCheck").empty();
             $("#staffRoleCheck").append("Staff Role missing");
             staffRoleError = false;
             return false;
-        } else if (!isValidStaffRole.test($("#staffRoleSelect").val())) {
+        } else if (!isValidStaffRole.test($("#staffRoleSelect option:selected").text())) {
             $("#staffRoleSelect").css({ "border-color": "red" });
             $("#staffRoleCheck").empty();
             $("#staffRoleCheck").append("Invalid Staff Role");
             staffRoleError = false;
             return false;
         } else {
-            $("#staffRole").css({ "border-color": "green" });
+            $("#staffRoleSelect").css({ "border-color": "green" });
             $("#staffRoleCheck").empty();
             staffRoleError = true;
         }
@@ -405,7 +425,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/fields",
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
             success: (res) => {
                 // Assuming `res` is an array of customer objects
                 res.forEach(field => {
@@ -492,7 +512,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffId,
             type: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
             success: (res) => {
                 console.log(JSON.stringify(res));
                 $("#staffCode").val(res.staffId);
@@ -558,7 +578,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" , 'Authorization': `Bearer ${getCookie('token')}`},
                 success: (res) => {
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
                         var form = new FormData();
@@ -586,12 +606,15 @@ $(document).ready(function () {
                             "timeout": 0,
                             "processData": false,
                             "mimeType": "multipart/form-data",
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            }, 
                             "contentType": false,
                             "data": form
                         };
 
                         $.ajax(settings).done(function (response) {
-                            loadTableCrop();
+                            loadTableStaff();
                             alert("Successfully added the staff!");
                             console.log("Response:", response);
                         }).fail(function (error) {
@@ -599,6 +622,7 @@ $(document).ready(function () {
                             console.error("Error:", error);
                         });
                     } else {
+                        alert("Staff already exists");
                         console.log("Staff already exists");
                     }
                 },
@@ -639,6 +663,9 @@ $(document).ready(function () {
             "url": "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
             "method": "DELETE",
             "timeout": 0,
+            "headers": {
+                'Authorization': `Bearer ${getCookie('token')}`,
+            }, 
         };
 
         $.ajax(settings)
@@ -694,7 +721,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "http://localhost:4010/green-shadow/api/v1/staff/" + staffCode,
                 type: "GET",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${getCookie('token')}` },
                 success: (res) => {
 
                     if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
@@ -726,7 +753,10 @@ $(document).ready(function () {
                             "processData": false,
                             "mimeType": "multipart/form-data",
                             "contentType": false,
-                            "data": form
+                            "data": form,
+                            "headers": {
+                                'Authorization': `Bearer ${getCookie('token')}`,
+                            }, 
                         };
 
                         $.ajax(settings).done(function (response) {
